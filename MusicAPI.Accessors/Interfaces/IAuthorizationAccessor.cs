@@ -2,6 +2,6 @@
 {
     public interface IAuthorizationAccessor
     {
-        Task<string> RequestAccessToken();
+        Task<string> RequestAccessTokenAsync();
     }
 }

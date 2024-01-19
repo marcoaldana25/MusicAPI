@@ -11,6 +11,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpClient();
 
+builder.Services.ConfigureManagerDependencies();
 builder.Services.ConfigureAccessorDependencies();
 
 var app = builder.Build();

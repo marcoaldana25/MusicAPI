@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\MusicAPI.Accessors\MusicAPI.Accessors.csproj" />
+    <ProjectReference Include="..\..\MusicAPI.Managers\MusicAPI.Managers.csproj" />
   </ItemGroup>
 
 </Project>
