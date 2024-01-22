@@ -16,5 +16,10 @@ namespace MusicAPI.InversionOfControl
         {
             serviceCollection.AddTransient<ISpotifyManager, SpotifyManager>();
         }
+
+        public static void ConfigureUtilitiesDependencies(this IServiceCollection serviceCollection, IConfiguration configuration)
+        {
+            serviceCollection.AddTransient<IConfigurationManager, ConfigurationManager>();
+        }
     }
 }

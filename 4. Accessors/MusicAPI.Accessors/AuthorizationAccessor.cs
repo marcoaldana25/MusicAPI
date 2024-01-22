@@ -105,7 +105,7 @@ namespace MusicAPI.Accessors
                 .SetAbsoluteExpiration(TimeSpan.FromSeconds(expirationInSeconds ?? 60));
 
             _memoryCache
-                .Set<string>(key, value, memoryCacheEntryOptions);
+                .Set(key, value, memoryCacheEntryOptions);
         }
     }
 }

@@ -12,10 +12,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
 
 // Sets up the default IMemoryCache for the application.
-builder.Services.AddMemoryCache();
+builder.Services.AddMemoryCache();    
 
 builder.Services.ConfigureManagerDependencies();
 builder.Services.ConfigureAccessorDependencies();
+builder.Services.ConfigureUtilitiesDependencies(builder.Configuration);
 
 var app = builder.Build();
 
