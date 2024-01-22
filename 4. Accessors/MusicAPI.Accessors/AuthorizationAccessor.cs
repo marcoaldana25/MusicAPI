@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using MusicAPI.Accessors.DataTransferObjects;
 using MusicAPI.Accessors.Interfaces;
+using MusicAPI.Utilities.Interfaces;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -11,6 +12,8 @@ namespace MusicAPI.Accessors
     {
         private const string TokenBaseUrl = "https://accounts.spotify.com/api/token";
 
+        private readonly IConfigurationManager _configurationManager;
+
         private readonly IHttpClientFactory _httpClientFactory;
 
         private readonly IMemoryCache _memoryCache;
@@ -18,9 +21,11 @@ namespace MusicAPI.Accessors
         private const string SpotifyAccessTokenKey = "SpotifyAccessToken";
 
         public AuthorizationAccessor(
+            IConfigurationManager configurationManager,
             IHttpClientFactory httpClientFactory,
             IMemoryCache memoryCache)
         {
+            _configurationManager = configurationManager;
             _httpClientFactory = httpClientFactory;
             _memoryCache = memoryCache;
         }
@@ -71,7 +76,7 @@ namespace MusicAPI.Accessors
             var httpClient = _httpClientFactory.CreateClient();
 
             var byteArray = new UTF8Encoding()
-                .GetBytes("28888b0004c34552a4c22db0462c3434:e5fa4a5e6f544ffb8bbfbe79b95a3d96"); // <client_id>:<client_secret>
+                .GetBytes($"{_configurationManager.GetSpotifyClientId()}:{_configurationManager.GetSpotifyClientSecret()}");
 
             httpClient
                 .DefaultRequestHeaders
@@ -88,8 +93,8 @@ namespace MusicAPI.Accessors
 
             var formData = new List<KeyValuePair<string, string>>
                 {
-                    new KeyValuePair<string, string>("client_id", "28888b0004c34552a4c22db0462c3434"),
-                    new KeyValuePair<string, string>("refresh_token", "AQD7DEopRQGK6amjH5VSen725Hnt5gTJUW0yGGfzM32PZrnT_cQfMB5jcY-IkDmG3Nl3xbA6_s6nDjMfGJowL_5RZfwzDMtJYgZgiJETPRXE_Xj-9Wsh2RjRP_D5gULijcY"),
+                    new KeyValuePair<string, string>("client_id", _configurationManager.GetSpotifyClientId()),
+                    new KeyValuePair<string, string>("refresh_token", _configurationManager.GetSpotifyAuthorizationCode()),
                     new KeyValuePair<string, string>("grant_type", "refresh_token")
                 };
 

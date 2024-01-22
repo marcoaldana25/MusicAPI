@@ -19,7 +19,10 @@ namespace MusicAPI.InversionOfControl
 
         public static void ConfigureUtilitiesDependencies(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
-            serviceCollection.AddTransient<IConfigurationManager, ConfigurationManager>();
+            serviceCollection.AddTransient<Utilities.Interfaces.IConfigurationManager, Utilities.ConfigurationManager>(serviceProvider =>
+            {
+                return new Utilities.ConfigurationManager(configuration);
+            });
         }
     }
 }
