@@ -8,6 +8,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Clients", "1. Clients", "{E8BE8FB4-C634-4E64-9F88-37894A0C9DF7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Managers", "2. Managers", "{EA012FC0-EA10-4E7A-9E79-7606B5675CE7}"
+	ProjectSection(SolutionItems) = preProject
+		1. Clients\MusicAPI\appsettings.Development.json = 1. Clients\MusicAPI\appsettings.Development.json
+		1. Clients\MusicAPI\appsettings.json = 1. Clients\MusicAPI\appsettings.json
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Engines", "3. Engines", "{5ADCED76-75AF-4E36-AC4A-5E4335C99083}"
 EndProject
@@ -15,7 +19,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Accessors", "4. Accessor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7. Unit Tests", "7. Unit Tests", "{201A3D81-097F-4334-B553-0F398F4368D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicAPI", "1. Clients\MusicAPI\MusicAPI.csproj", "{0167F3D7-B342-4374-9A2F-9AC06BF619C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicAPI", "1. Clients\MusicAPI\MusicAPI.csproj", "{0167F3D7-B342-4374-9A2F-9AC06BF619C8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicAPI.Accessors", "4. Accessors\MusicAPI.Accessors\MusicAPI.Accessors.csproj", "{21BAED28-2BFE-45BE-B5C2-588E1A13AEA1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Utilities", "5. Utilities", "{5A06C100-89C4-4FF5-85DB-C276FAA9AA17}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicAPI.Managers", "2. Managers\MusicAPI.Managers\MusicAPI.Managers.csproj", "{DD44FBEB-04D5-4421-8DC5-B5CD5B7A2B26}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicAPI.Utilities", "5. Utilities\MusicAPI.Utilities\MusicAPI.Utilities.csproj", "{EB2E15C7-325C-4193-BB73-23C1BA77E3EC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicAPI.Utilities.Tests", "7. Unit Tests\MusicAPI.Utilities.Tests\MusicAPI.Utilities.Tests.csproj", "{2D5E049A-25DF-4DD3-9212-57BE862A1257}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,12 +41,32 @@ Global
 		{0167F3D7-B342-4374-9A2F-9AC06BF619C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0167F3D7-B342-4374-9A2F-9AC06BF619C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0167F3D7-B342-4374-9A2F-9AC06BF619C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21BAED28-2BFE-45BE-B5C2-588E1A13AEA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21BAED28-2BFE-45BE-B5C2-588E1A13AEA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21BAED28-2BFE-45BE-B5C2-588E1A13AEA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21BAED28-2BFE-45BE-B5C2-588E1A13AEA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD44FBEB-04D5-4421-8DC5-B5CD5B7A2B26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD44FBEB-04D5-4421-8DC5-B5CD5B7A2B26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD44FBEB-04D5-4421-8DC5-B5CD5B7A2B26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD44FBEB-04D5-4421-8DC5-B5CD5B7A2B26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB2E15C7-325C-4193-BB73-23C1BA77E3EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB2E15C7-325C-4193-BB73-23C1BA77E3EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB2E15C7-325C-4193-BB73-23C1BA77E3EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB2E15C7-325C-4193-BB73-23C1BA77E3EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D5E049A-25DF-4DD3-9212-57BE862A1257}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D5E049A-25DF-4DD3-9212-57BE862A1257}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D5E049A-25DF-4DD3-9212-57BE862A1257}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D5E049A-25DF-4DD3-9212-57BE862A1257}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0167F3D7-B342-4374-9A2F-9AC06BF619C8} = {E8BE8FB4-C634-4E64-9F88-37894A0C9DF7}
+		{21BAED28-2BFE-45BE-B5C2-588E1A13AEA1} = {6A31D9C1-0300-4154-8366-725D015FE5F0}
+		{DD44FBEB-04D5-4421-8DC5-B5CD5B7A2B26} = {EA012FC0-EA10-4E7A-9E79-7606B5675CE7}
+		{EB2E15C7-325C-4193-BB73-23C1BA77E3EC} = {5A06C100-89C4-4FF5-85DB-C276FAA9AA17}
+		{2D5E049A-25DF-4DD3-9212-57BE862A1257} = {201A3D81-097F-4334-B553-0F398F4368D6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DCB13667-0DBB-49F8-A833-8286E7AA2A17}

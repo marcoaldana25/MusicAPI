@@ -5,10 +5,18 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
+    <UserSecretsId>d906ef96-da7d-4ae7-8216-2873948e3c26</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\2. Managers\MusicAPI.Managers\MusicAPI.Managers.csproj" />
+    <ProjectReference Include="..\..\4. Accessors\MusicAPI.Accessors\MusicAPI.Accessors.csproj" />
+    <ProjectReference Include="..\..\5. Utilities\MusicAPI.Utilities\MusicAPI.Utilities.csproj" />
   </ItemGroup>
 
 </Project>
