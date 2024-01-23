@@ -19,8 +19,9 @@ namespace MusicAPI.Controllers
             _spotifyManager = spotifyManager;
         }
 
-        [HttpGet(Name = "GetSpotifyAccount")]
-        public async Task<IActionResult> GetSpotifyAccount()
+        [HttpGet]
+        [Route("/GetAccountDetails")]
+        public async Task<IActionResult> GetAccountDetails()
         {
             var spotifyAccount = await _spotifyManager
                 .GetSpotifyAccountAsync();

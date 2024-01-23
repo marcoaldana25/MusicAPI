@@ -10,6 +10,7 @@ namespace MusicAPI.InversionOfControl
         public static void ConfigureAccessorDependencies(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<IAuthorizationAccessor, AuthorizationAccessor>();
+            serviceCollection.AddTransient<ISpotifyAccessor, SpotifyAccessor>();
         }
 
         public static void ConfigureManagerDependencies(this IServiceCollection serviceCollection)
