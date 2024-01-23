@@ -21,7 +21,7 @@ namespace MusicAPI.Managers
             var bearerToken = await _authorizationAccessor
                 .RequestAccessTokenAsync();
 
-            await _spotifyAccessor
+            var userProfileDto = await _spotifyAccessor
                 .GetCurrentUserProfileAsync(bearerToken);
 
             return string.Empty;

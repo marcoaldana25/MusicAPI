@@ -1,5 +1,7 @@
-﻿using MusicAPI.Accessors.Interfaces;
+﻿using MusicAPI.Accessors.DataTransferObjects;
+using MusicAPI.Accessors.Interfaces;
 using System.Net.Http.Headers;
+using System.Text.Json;
 
 namespace MusicAPI.Accessors
 {
@@ -13,7 +15,7 @@ namespace MusicAPI.Accessors
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task GetCurrentUserProfileAsync(string bearerToken)
+        public async Task<UserProfile> GetCurrentUserProfileAsync(string bearerToken)
         {
             var httpClient = _httpClientFactory.CreateClient();
 
@@ -33,7 +35,14 @@ namespace MusicAPI.Accessors
                 var responseContent = await response
                     .Content
                     .ReadAsStringAsync();
+
+                var userProfile = JsonSerializer
+                    .Deserialize<UserProfile>(responseContent);
+
+                return userProfile ?? new UserProfile();
             }
+
+            return new UserProfile();
         }
     }
 }
