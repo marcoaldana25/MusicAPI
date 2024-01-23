@@ -8,6 +8,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Clients", "1. Clients", "{E8BE8FB4-C634-4E64-9F88-37894A0C9DF7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Managers", "2. Managers", "{EA012FC0-EA10-4E7A-9E79-7606B5675CE7}"
+	ProjectSection(SolutionItems) = preProject
+		1. Clients\MusicAPI\appsettings.Development.json = 1. Clients\MusicAPI\appsettings.Development.json
+		1. Clients\MusicAPI\appsettings.json = 1. Clients\MusicAPI\appsettings.json
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Engines", "3. Engines", "{5ADCED76-75AF-4E36-AC4A-5E4335C99083}"
 EndProject
@@ -23,9 +27,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Utilities", "5. Utilitie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicAPI.Managers", "2. Managers\MusicAPI.Managers\MusicAPI.Managers.csproj", "{DD44FBEB-04D5-4421-8DC5-B5CD5B7A2B26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicAPI.Utilities", "5. Utilities\MusicAPI.Utilities\MusicAPI.Utilities.csproj", "{EB2E15C7-325C-4193-BB73-23C1BA77E3EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicAPI.Utilities", "5. Utilities\MusicAPI.Utilities\MusicAPI.Utilities.csproj", "{EB2E15C7-325C-4193-BB73-23C1BA77E3EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicAPI.Utilities.Tests", "7. Unit Tests\MusicAPI.Utilities.Tests\MusicAPI.Utilities.Tests.csproj", "{2D5E049A-25DF-4DD3-9212-57BE862A1257}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicAPI.Utilities.Tests", "7. Unit Tests\MusicAPI.Utilities.Tests\MusicAPI.Utilities.Tests.csproj", "{2D5E049A-25DF-4DD3-9212-57BE862A1257}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

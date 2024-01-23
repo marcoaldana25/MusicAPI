@@ -9,11 +9,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Allow IHttpClientFactory to be injected to necessary classes.
 builder.Services.AddHttpClient();
 
 // Sets up the default IMemoryCache for the application.
 builder.Services.AddMemoryCache();
 
+// Configure project level dependencies.
 builder.Services.ConfigureManagerDependencies();
 builder.Services.ConfigureAccessorDependencies();
 builder.Services.ConfigureUtilitiesDependencies(builder.Configuration);

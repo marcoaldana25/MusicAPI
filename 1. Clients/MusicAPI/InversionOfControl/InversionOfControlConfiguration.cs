@@ -2,6 +2,7 @@
 using MusicAPI.Accessors.Interfaces;
 using MusicAPI.Managers;
 using MusicAPI.Managers.Interfaces;
+using MusicAPI.Managers.Mapping;
 
 namespace MusicAPI.InversionOfControl
 {
@@ -15,6 +16,8 @@ namespace MusicAPI.InversionOfControl
 
         public static void ConfigureManagerDependencies(this IServiceCollection serviceCollection)
         {
+            serviceCollection.AddAutoMapper(typeof(UserProfileMappingProfile).Assembly);
+
             serviceCollection.AddTransient<ISpotifyManager, SpotifyManager>();
         }
 

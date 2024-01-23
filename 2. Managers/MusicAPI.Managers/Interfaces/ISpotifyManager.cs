@@ -2,6 +2,6 @@
 {
     public interface ISpotifyManager
     {
-        Task<string> GetSpotifyAccountAsync();
+        Task<ViewModels.UserProfile> GetSpotifyAccountAsync();
     }
 }

@@ -37,7 +37,5 @@ namespace MusicAPI.Utilities
         {
             return _configuration.GetValue<string>(key) ?? string.Empty;
         }
-
-
     }
 }

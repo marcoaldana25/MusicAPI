@@ -13,7 +13,14 @@ namespace MusicAPI.Accessors.DataTransferObjects
             DisplayName = string.Empty;
             EmailAddress = string.Empty;
             ExplicitContentFilter = new ExplicitContentFilter();
+            ExternalUrls = new ExternalUrl();
             Followers = new Followers();
+            Href = string.Empty;
+            Id = string.Empty;
+            Images = [];
+            Product = string.Empty;
+            Type = string.Empty;
+            Uri = string.Empty;
         }
 
         /// <summary>
