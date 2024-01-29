@@ -18,6 +18,6 @@ namespace MusicAPI.Accessors.DataTransferObjects
         /// When true, indicates that the explicit content settings is locked and can't be changed by the user.
         /// </summary>
         [JsonPropertyName("filter_locked")]
-        public bool FilteredLocked {  get; set; }
+        public bool FilterLocked {  get; set; }
     }
 }

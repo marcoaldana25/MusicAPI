@@ -4,31 +4,20 @@ using MusicAPI.Managers.Interfaces;
 
 namespace MusicAPI.Managers
 {
-    public class SpotifyManager : ISpotifyManager
-    {
-        private readonly IAuthorizationAccessor _authorizationAccessor;
-        private readonly IMapper _mapper;
-        private readonly ISpotifyAccessor _spotifyAccessor;
-
-        public SpotifyManager(
+    public class SpotifyManager(
             IAuthorizationAccessor authorizationAccessor,
             IMapper mapper,
-            ISpotifyAccessor spotifyAccessor)
-        {
-            _authorizationAccessor = authorizationAccessor;
-            _mapper = mapper;
-            _spotifyAccessor = spotifyAccessor;
-        }
-
+            ISpotifyAccessor spotifyAccessor) : ISpotifyManager
+    {
         public async Task<ViewModels.UserProfile> GetSpotifyAccountAsync()
         {
-            var bearerToken = await _authorizationAccessor
+            var bearerToken = await authorizationAccessor
                 .RequestAccessTokenAsync();
 
-            var userProfileDto = await _spotifyAccessor
+            var userProfileDto = await spotifyAccessor
                 .GetCurrentUserProfileAsync(bearerToken);
 
-            return _mapper
+            return mapper
                 .Map<ViewModels.UserProfile>(userProfileDto);;
         }
     }

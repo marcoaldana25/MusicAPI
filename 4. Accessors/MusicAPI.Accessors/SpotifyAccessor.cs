@@ -5,19 +5,13 @@ using System.Text.Json;
 
 namespace MusicAPI.Accessors
 {
-    public class SpotifyAccessor : ISpotifyAccessor
+    public class SpotifyAccessor(IHttpClientFactory httpClientFactory) : ISpotifyAccessor
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-
         private const string BaseUri = "https://api.spotify.com/v1";
-        public SpotifyAccessor(IHttpClientFactory httpClientFactory)
-        {
-            _httpClientFactory = httpClientFactory;
-        }
 
         public async Task<UserProfile> GetCurrentUserProfileAsync(string bearerToken)
         {
-            var httpClient = _httpClientFactory.CreateClient();
+            var httpClient = httpClientFactory.CreateClient();
 
             httpClient
                 .DefaultRequestHeaders

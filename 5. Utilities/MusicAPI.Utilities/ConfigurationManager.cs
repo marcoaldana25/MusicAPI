@@ -3,15 +3,8 @@ using IConfigurationManager = MusicAPI.Utilities.Interfaces.IConfigurationManage
 
 namespace MusicAPI.Utilities
 {
-    public class ConfigurationManager : IConfigurationManager
+    public class ConfigurationManager(IConfiguration configuration) : IConfigurationManager
     {
-        private readonly IConfiguration _configuration;
-
-        public ConfigurationManager(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
         public string GetSpotifyClientId()
         {
             const string clientIdKey = "SpotifyCredentials:ClientId";
@@ -35,7 +28,7 @@ namespace MusicAPI.Utilities
 
         private string GetValue(string key)
         {
-            return _configuration.GetValue<string>(key) ?? string.Empty;
+            return configuration.GetValue<string>(key) ?? string.Empty;
         }
     }
 }
