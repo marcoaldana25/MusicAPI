@@ -26,10 +26,10 @@ jobs:
       run: dotnet restore
       
     - name: Build
-      run: dotnet build --configuration Release --Platform "Any CPU" --no-restore
+      run: dotnet build --configuration Release /p:Platform="Any CPU" --no-restore
       
     - name: Test
-      run: dotnet test --configuration Release --Platform "Any CPU" --no-build --verbosity normal --collect "XPlat Code Coverage" --results-directory ./coverage
+      run: dotnet test --configuration Release /p:Platform="Any CPU" --no-build --verbosity normal --collect "XPlat Code Coverage" --results-directory ./coverage
 
     - name: Code Coverage Summary
       uses: edaniels/CodeCoverageSummary@v1.2.3
