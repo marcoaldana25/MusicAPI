@@ -11,11 +11,11 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    name: CI Build
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v3
     
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
@@ -26,28 +26,28 @@ jobs:
       run: dotnet restore
       
     - name: Build
-      run: dotnet build --no-restore --configuration Release
+      run: dotnet build --configuration Release --Platform "Any CPU" --no-restore
       
     - name: Test
-      run: dotnet test --configuration Release --no-build --verbosity normal --collect "XPlat Code Coverage" --results-directory ./coverage
+      run: dotnet test --configuration Release --Platform "Any CPU" --no-build --verbosity normal --collect "XPlat Code Coverage" --results-directory ./coverage
 
-    - name: Code Coverage Summaryy
+    - name: Code Coverage Summary
       uses: edaniels/CodeCoverageSummary@v1.2.3
       with:
         filename: coverage.cobertura.xml
         badge: true
-        # Fail if overall Line Rate below lower threshold - true / false (default).
         fail_below_min: false
-        # Output Format - markdown or text (default).
         format: markdown
-        # Hide Branch Rate values in the output - true / false (default).
         hide_branch_rate: false
-        # Hide Complexity values in the output - true / false (default).
         hide_complexity: false
-        # Include health indicators in the output - true (default) / false.
         indicators: true
-        # Output Type - console (default), file or both.
-        output: console
-        # Threshold percentages for badge and health indicators, lower threshold can also be used to fail the action.
-        thresholds: 50 75
+        output: both
+        thresholds: '50 75'
+
+    - name: Sticky Pull Request Comment
+      uses: marocchino/sticky-pull-request-comment@v2.8.0
+      with:
+        recreate: true
+        path: code-coverage-results.md
+
           
