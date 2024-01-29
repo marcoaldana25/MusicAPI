@@ -4,6 +4,6 @@
     {
         public bool FilterEnabled { get; set; }
 
-        public bool FilteredLocked { get; set; }
+        public bool FilterLocked { get; set; }
     }
 }

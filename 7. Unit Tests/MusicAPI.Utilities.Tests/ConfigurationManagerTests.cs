@@ -29,8 +29,9 @@ namespace MusicAPI.Utilities.Tests
 
             // Assert
             const string expectedClientId = "SpotifyClientId";
+            
 
-            Assert.That(expectedClientId.Equals(result));
+            Assert.That(result, Is.EqualTo(expectedClientId));
         }
 
         [Test]
@@ -46,7 +47,7 @@ namespace MusicAPI.Utilities.Tests
             // Assert
             const string expectedClientSecret = "SpotifyClientSecret";
 
-            Assert.That(expectedClientSecret.Equals(result));
+            Assert.That(result, Is.EqualTo(expectedClientSecret));
         }
 
         [Test]
@@ -62,7 +63,7 @@ namespace MusicAPI.Utilities.Tests
             // Assert
             const string expectedAuthCode = "SpotifyAuthCode";
 
-            Assert.That(expectedAuthCode.Equals(result));
+            Assert.That(result, Is.EqualTo(expectedAuthCode));
         }
     }
 }

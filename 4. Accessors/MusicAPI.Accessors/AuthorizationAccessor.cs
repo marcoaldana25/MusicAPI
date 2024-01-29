@@ -8,33 +8,21 @@ using System.Text.Json;
 
 namespace MusicAPI.Accessors
 {
-    public class AuthorizationAccessor : IAuthorizationAccessor
+    public class AuthorizationAccessor(
+            IConfigurationManager configurationManager,
+            IHttpClientFactory httpClientFactory,
+            IMemoryCache memoryCache) : IAuthorizationAccessor
     {
         private const string TokenBaseUrl = "https://accounts.spotify.com/api/token";
 
-        private readonly IConfigurationManager _configurationManager;
-
-        private readonly IHttpClientFactory _httpClientFactory;
-
-        private readonly IMemoryCache _memoryCache;
-
         private const string SpotifyAccessTokenKey = "SpotifyAccessToken";
 
-        public AuthorizationAccessor(
-            IConfigurationManager configurationManager,
-            IHttpClientFactory httpClientFactory,
-            IMemoryCache memoryCache)
-        {
-            _configurationManager = configurationManager;
-            _httpClientFactory = httpClientFactory;
-            _memoryCache = memoryCache;
-        }
 
         public async Task<string> RequestAccessTokenAsync()
         {
             try
             {
-                if (_memoryCache.TryGetValue(SpotifyAccessTokenKey, out var accessToken))
+                if (memoryCache.TryGetValue(SpotifyAccessTokenKey, out var accessToken))
                 {
                     return accessToken?.ToString() ?? string.Empty;
                 }
@@ -73,10 +61,10 @@ namespace MusicAPI.Accessors
 
         private HttpClient CreateHttpClient()
         {
-            var httpClient = _httpClientFactory.CreateClient();
+            var httpClient = httpClientFactory.CreateClient();
 
             var byteArray = new UTF8Encoding()
-                .GetBytes($"{_configurationManager.GetSpotifyClientId()}:{_configurationManager.GetSpotifyClientSecret()}");
+                .GetBytes($"{configurationManager.GetSpotifyClientId()}:{configurationManager.GetSpotifyClientSecret()}");
 
             httpClient
                 .DefaultRequestHeaders
@@ -92,11 +80,11 @@ namespace MusicAPI.Accessors
                     new Uri(TokenBaseUrl));
 
             var formData = new List<KeyValuePair<string, string>>
-                {
-                    new KeyValuePair<string, string>("client_id", _configurationManager.GetSpotifyClientId()),
-                    new KeyValuePair<string, string>("refresh_token", _configurationManager.GetSpotifyAuthorizationCode()),
-                    new KeyValuePair<string, string>("grant_type", "refresh_token")
-                };
+            {
+                new("client_id", configurationManager.GetSpotifyClientId()),
+                new("refresh_token", configurationManager.GetSpotifyAuthorizationCode()),
+                new("grant_type", "refresh_token")
+            };
 
             httpRequestMessage
                 .Content = new FormUrlEncodedContent(formData);
@@ -109,7 +97,7 @@ namespace MusicAPI.Accessors
             var memoryCacheEntryOptions = new MemoryCacheEntryOptions()
                 .SetAbsoluteExpiration(TimeSpan.FromSeconds(expirationInSeconds ?? 60));
 
-            _memoryCache
+            memoryCache
                 .Set(key, value, memoryCacheEntryOptions);
         }
     }
