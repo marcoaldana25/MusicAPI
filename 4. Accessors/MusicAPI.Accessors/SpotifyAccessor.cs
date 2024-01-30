@@ -11,6 +11,11 @@ namespace MusicAPI.Accessors
 
         public async Task<UserProfile> GetCurrentUserProfileAsync(string bearerToken)
         {
+            if (string.IsNullOrWhiteSpace(bearerToken))
+            {
+                throw new ArgumentNullException(nameof(bearerToken));
+            }
+
             var httpClient = httpClientFactory.CreateClient();
 
             httpClient
@@ -36,7 +41,7 @@ namespace MusicAPI.Accessors
                 return userProfile ?? new UserProfile();
             }
 
-            return new UserProfile();
+            throw new HttpRequestException($"Unable to retrieve user profile information from {BaseUri}");
         }
     }
 }
