@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicAPI.Utilities.Tests", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicAPI.Managers.Tests", "7. Unit Tests\MusicAPI.Managers.UnitTests\MusicAPI.Managers.Tests.csproj", "{77596EA2-FFA2-4AD0-9B8D-0CE1BC80966E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicAPI.Accessors.Tests", "7. Unit Tests\MusicAPI.Accessors.Tests\MusicAPI.Accessors.Tests.csproj", "{1ECDAC8B-589A-460D-A0DB-BC822121301D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicAPI.Accessors.Tests", "7. Unit Tests\MusicAPI.Accessors.Tests\MusicAPI.Accessors.Tests.csproj", "{1ECDAC8B-589A-460D-A0DB-BC822121301D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{903443A0-02CB-49B9-B2D0-E6C6C29F0D33}"
 	ProjectSection(SolutionItems) = preProject
