@@ -20,43 +20,36 @@ namespace MusicAPI.Accessors
 
         public async Task<string> RequestAccessTokenAsync()
         {
-            try
+
+            if (memoryCache.TryGetValue(SpotifyAccessTokenKey, out var accessToken))
             {
-                if (memoryCache.TryGetValue(SpotifyAccessTokenKey, out var accessToken))
-                {
-                    return accessToken?.ToString() ?? string.Empty;
-                }
-
-                var httpClient = CreateHttpClient();
-
-                var httpRequestMessage = CreateRefreshAccessTokenRequestMessage();
-
-                var response = await httpClient.SendAsync(httpRequestMessage);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var responseContent = await response
-                        .Content
-                        .ReadAsStringAsync();
-
-                    var spotifyAccessToken = JsonSerializer
-                        .Deserialize<SpotifyAccessToken>(responseContent);
-
-                    SetCache(
-                        SpotifyAccessTokenKey,
-                        spotifyAccessToken?.AccessToken ?? string.Empty,
-                        spotifyAccessToken?.ExpiresIn);
-
-                    return spotifyAccessToken?.AccessToken ?? string.Empty;
-                }
-
-                return string.Empty;
-
+                return accessToken?.ToString() ?? string.Empty;
             }
-            catch (Exception exception)
+
+            var httpClient = CreateHttpClient();
+
+            var httpRequestMessage = CreateRefreshAccessTokenRequestMessage();
+
+            var response = await httpClient.SendAsync(httpRequestMessage);
+
+            if (response.IsSuccessStatusCode)
             {
-                return exception.Message.ToString();
+                var responseContent = await response
+                    .Content
+                    .ReadAsStringAsync();
+
+                var spotifyAccessToken = JsonSerializer
+                    .Deserialize<SpotifyAccessToken>(responseContent);
+
+                SetCache(
+                    SpotifyAccessTokenKey,
+                    spotifyAccessToken?.AccessToken ?? string.Empty,
+                    spotifyAccessToken?.ExpiresIn);
+
+                return spotifyAccessToken?.AccessToken ?? string.Empty;
             }
+
+            return string.Empty;
         }
 
         private HttpClient CreateHttpClient()
