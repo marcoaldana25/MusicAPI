@@ -40,7 +40,7 @@ namespace MusicAPI.Controllers
         ///     Item type to execute the search across.
         /// </param>
         /// <param name="marketCode">
-        ///     <see cref="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">An ISO 3166-1 alpha-2 country code.</see>
+        ///     An ISO 3166-1 alpha-2 country code.
         ///     If a County Code is specified, only content that is available in that market will be returned.
         /// </param>
         /// <param name="limit">The maximum number of results to return in each item type. Deafult is 20. The acceptable range is 0-50.</param>
@@ -67,6 +67,9 @@ namespace MusicAPI.Controllers
             [Optional] int offset,
             [Optional] string includeExternal)
         {
+            await spotifyManager
+                .GetSearchAsync(searchQuery, searchType, marketCode, limit, offset, includeExternal);
+
             return Ok("Hello");
         }
     }
