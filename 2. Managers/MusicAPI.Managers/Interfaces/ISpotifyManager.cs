@@ -1,4 +1,5 @@
-﻿using MusicAPI.Managers.ViewModels.Enums;
+﻿using MusicAPI.Accessors.DataTransferObjects;
+using MusicAPI.Managers.ViewModels.Enums;
 
 namespace MusicAPI.Managers.Interfaces
 {
@@ -20,7 +21,7 @@ namespace MusicAPI.Managers.Interfaces
         /// <param name="offset"></param>
         /// <param name="includeExternal"></param>
         /// <returns></returns>
-        Task GetSearchAsync(
+        Task<ViewModels.SearchResult> GetSearchAsync(
             string searchQuery,
             SearchType searchType,
             string marketCode,

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MusicAPI.Accessors.DataTransferObjects;
 using MusicAPI.Accessors.Interfaces;
 using MusicAPI.Engines.Interfaces;
 using MusicAPI.Managers.Interfaces;
@@ -27,7 +28,7 @@ namespace MusicAPI.Managers
                 .Map<ViewModels.UserProfile>(userProfileDto);;
         }
 
-        public async Task GetSearchAsync(
+        public async Task<ViewModels.SearchResult> GetSearchAsync(
             string searchQuery,
             SearchType searchType,
             string marketCode,
@@ -47,8 +48,11 @@ namespace MusicAPI.Managers
                     offset, 
                     includeExternal);
 
-            var response = await spotifyAccessor
+            var searchResultDto = await spotifyAccessor
                 .GetSearchAsync(bearerToken, queryString);
+
+            return mapper
+                .Map<ViewModels.SearchResult>(searchResultDto);
         }
     }
 }

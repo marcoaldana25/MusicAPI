@@ -69,10 +69,10 @@ namespace MusicAPI.Controllers
             int? offset = null,
             string? includeExternal = null)
         {
-            await spotifyManager
+            var searchResult = await spotifyManager
                 .GetSearchAsync(searchQuery, searchType, marketCode, limit, offset, includeExternal);
 
-            return Ok("Hello");
+            return Ok(searchResult);
         }
     }
 }
