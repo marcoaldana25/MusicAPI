@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MusicAPI.Accessors.DataTransferObjects;
 using MusicAPI.Accessors.Interfaces;
+using MusicAPI.Engines.Interfaces;
 using MusicAPI.Managers.Interfaces;
 using MusicAPI.Managers.ViewModels.Enums;
 
@@ -9,15 +9,19 @@ namespace MusicAPI.Managers
     public class SpotifyManager(
             IAuthorizationAccessor authorizationAccessor,
             IMapper mapper,
-            ISpotifyAccessor spotifyAccessor) : ISpotifyManager
+            ISpotifyAccessor spotifyAccessor,
+            IQueryEngine queryEngine) : ISpotifyManager
     {
         public async Task<ViewModels.UserProfile> GetSpotifyAccountAsync()
         {
             var bearerToken = await authorizationAccessor
                 .RequestAccessTokenAsync();
 
+            var queryString = queryEngine
+                .BuildCurrentUserProfileQueryString();
+
             var userProfileDto = await spotifyAccessor
-                .GetCurrentUserProfileAsync(bearerToken);
+                .GetCurrentUserProfileAsync(bearerToken, queryString);
 
             return mapper
                 .Map<ViewModels.UserProfile>(userProfileDto);;
@@ -34,18 +38,17 @@ namespace MusicAPI.Managers
             var bearerToken = await authorizationAccessor
                 .RequestAccessTokenAsync();
 
-            var searchRequest = new Search
-            {
-                SearchQuery = searchQuery,
-                SearchType = searchType.ToString(),
-                MarketCode = marketCode,
-                Limit = limit,
-                Offset = offset,
-                IncludeExternal = includeExternal
-            };
+            var queryString = queryEngine
+                .BuildSpotifySearchQueryString(
+                    searchQuery, 
+                    searchType.ToString(), 
+                    marketCode, 
+                    limit, 
+                    offset, 
+                    includeExternal);
 
             var response = await spotifyAccessor
-                .GetSearchAsync(bearerToken, searchRequest);
+                .GetSearchAsync(bearerToken, queryString);
         }
     }
 }

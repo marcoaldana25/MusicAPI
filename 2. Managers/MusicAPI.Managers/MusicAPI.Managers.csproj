@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\3. Engines\MusicAPI.Engines\MusicAPI.Engines.csproj" />
     <ProjectReference Include="..\..\4. Accessors\MusicAPI.Accessors\MusicAPI.Accessors.csproj" />
   </ItemGroup>
 

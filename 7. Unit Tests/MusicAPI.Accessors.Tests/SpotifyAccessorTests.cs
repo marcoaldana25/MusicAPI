@@ -20,7 +20,21 @@ namespace MusicAPI.Accessors.Tests
 
             // Act & Assert
             Assert.ThrowsAsync<ArgumentNullException>(async () => await spotifyAccessor
-            .GetCurrentUserProfileAsync(string.Empty));
+                .GetCurrentUserProfileAsync(string.Empty, string.Empty));
+
+        }
+
+        [Test]
+        public void GetCurrentUserProfileAsync_EmptyQueryString_ShouldthrowArgumentNullException()
+        {
+            // Arrange
+            var mockHttpClientFactory = new Mock<IHttpClientFactory>(MockBehavior.Strict);
+
+            var spotifyAccessor = new SpotifyAccessor(mockHttpClientFactory.Object);
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await spotifyAccessor
+                .GetCurrentUserProfileAsync("bearer", string.Empty));
 
         }
 
@@ -53,7 +67,7 @@ namespace MusicAPI.Accessors.Tests
 
             // Act & Assert
             Assert.ThrowsAsync<HttpRequestException>(async () => await spotifyAccessor
-                .GetCurrentUserProfileAsync("bearer"));
+                .GetCurrentUserProfileAsync("bearer", "http://localhost/"));
         }
 
         [Test]
@@ -94,7 +108,7 @@ namespace MusicAPI.Accessors.Tests
 
             // Act
             var result = await spotifyAccessor
-                .GetCurrentUserProfileAsync("bearer");
+                .GetCurrentUserProfileAsync("bearer", "http://localhost");
 
             // Assert
             Assert.Multiple(() =>

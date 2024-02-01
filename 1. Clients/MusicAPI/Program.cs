@@ -35,8 +35,9 @@ builder.Services.AddHttpClient();
 builder.Services.AddMemoryCache();
 
 // Configure project level dependencies.
-builder.Services.ConfigureManagerDependencies();
 builder.Services.ConfigureAccessorDependencies();
+builder.Services.ConfigureEngineDependencies();
+builder.Services.ConfigureManagerDependencies();
 builder.Services.ConfigureUtilitiesDependencies(builder.Configuration);
 
 
