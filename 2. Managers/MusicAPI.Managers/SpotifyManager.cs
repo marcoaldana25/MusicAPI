@@ -27,9 +27,9 @@ namespace MusicAPI.Managers
             string searchQuery,
             SearchType searchType,
             string marketCode,
-            int limit = 20,
-            int offset = 0,
-            string includeExternal = "")
+            int? limit = 20,
+            int? offset = 0,
+            string? includeExternal = "")
         {
             var bearerToken = await authorizationAccessor
                 .RequestAccessTokenAsync();

@@ -18,12 +18,12 @@ namespace MusicAPI.Accessors.DataTransferObjects
         public string MarketCode { get; set; } = string.Empty;
 
         [JsonPropertyName("limit")]
-        public int Limit { get; set; } = 20;
+        public int? Limit { get; set; } = 20;
 
         [JsonPropertyName("offset")]
-        public int Offset { get; set; } = 0;
+        public int? Offset { get; set; } = 0;
 
         [JsonPropertyName("include_external")]
-        public string IncludeExternal { get; set; } = string.Empty;
+        public string? IncludeExternal { get; set; } = string.Empty;
     }
 }

@@ -2,13 +2,15 @@
 using MusicAPI.Managers.Interfaces;
 using MusicAPI.Managers.ViewModels.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.InteropServices;
-using static System.Net.WebRequestMethods;
 
 namespace MusicAPI.Controllers
 {
-    [Route("api/[controller]")]
+    /// <summary>
+    /// Controller for Client integration targeting Spotify's Web API.
+    /// </summary>
+    /// <param name="spotifyManager"></param>
     [ApiController]
+    [Route("api/[controller]")]
     public class SpotifyController(ISpotifyManager spotifyManager) : ControllerBase
     {
         /// <summary>
@@ -63,9 +65,9 @@ namespace MusicAPI.Controllers
             [Required] string searchQuery,
             [Required] SearchType searchType,
             [Required] string marketCode,
-            [Optional] int limit,
-            [Optional] int offset,
-            [Optional] string includeExternal)
+            int? limit = null,
+            int? offset = null,
+            string? includeExternal = null)
         {
             await spotifyManager
                 .GetSearchAsync(searchQuery, searchType, marketCode, limit, offset, includeExternal);
