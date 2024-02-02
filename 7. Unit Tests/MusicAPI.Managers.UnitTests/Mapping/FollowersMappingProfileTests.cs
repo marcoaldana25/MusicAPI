@@ -1,8 +1,4 @@
-﻿using AutoMapper;
-using MusicAPI.Managers.Mapping;
-using System.Diagnostics.CodeAnalysis;
-
-namespace MusicAPI.Managers.UnitTests.Mapping
+﻿namespace MusicAPI.Managers.UnitTests.Mapping
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]

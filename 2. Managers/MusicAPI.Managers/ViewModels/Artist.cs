@@ -6,13 +6,13 @@
 
         public Followers Followers { get; set; } = new Followers();
 
-        public string[] Genres { get; set; } = Array.Empty<string>();
+        public string[] Genres { get; set; } = [];
 
         public string Href { get; set; } = string.Empty;
 
         public string Id { get; set; } = string.Empty;
 
-        public Image[] Images { get; set; } = Array.Empty<Image>();
+        public Image[] Images { get; set; } = [];
 
         public string Name { get; set; } = string.Empty;
 
