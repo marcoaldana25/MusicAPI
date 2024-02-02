@@ -1,12 +1,8 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
-using Moq.Protected;
-using MusicAPI.Accessors.DataTransferObjects;
 using MusicAPI.Utilities.Interfaces;
-using System.Diagnostics.CodeAnalysis;
 using System.Net;
-using System.Text.Json;
+
 
 namespace MusicAPI.Accessors.Tests
 {
@@ -111,7 +107,7 @@ namespace MusicAPI.Accessors.Tests
             });
         }
 
-        private Mock<IConfigurationManager> GetMockConfigurationManager()
+        private static Mock<IConfigurationManager> GetMockConfigurationManager()
         {
             var mockConfigurationManager = new Mock<IConfigurationManager>(MockBehavior.Strict);
             mockConfigurationManager
@@ -129,7 +125,7 @@ namespace MusicAPI.Accessors.Tests
             return mockConfigurationManager;
         }
 
-        private Mock<IHttpClientFactory> GetMockHttpClientFactory(HttpStatusCode statusCode, SpotifyAccessToken? accessToken = null)
+        private static Mock<IHttpClientFactory> GetMockHttpClientFactory(HttpStatusCode statusCode, SpotifyAccessToken? accessToken = null)
         {
             var mockHttpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Strict);
             mockHttpMessageHandler

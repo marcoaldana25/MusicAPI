@@ -6,10 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Clients", "1. Clients", "{E8BE8FB4-C634-4E64-9F88-37894A0C9DF7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Managers", "2. Managers", "{EA012FC0-EA10-4E7A-9E79-7606B5675CE7}"
-	ProjectSection(SolutionItems) = preProject
-		1. Clients\MusicAPI\appsettings.Development.json = 1. Clients\MusicAPI\appsettings.Development.json
-		1. Clients\MusicAPI\appsettings.json = 1. Clients\MusicAPI\appsettings.json
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Engines", "3. Engines", "{5ADCED76-75AF-4E36-AC4A-5E4335C99083}"
 EndProject
@@ -37,6 +33,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.github\README.md = .github\README.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicAPI.Engines", "3. Engines\MusicAPI.Engines\MusicAPI.Engines.csproj", "{330690AE-DB1F-4A76-B742-27DF97CA8CE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicAPI.Engines.Tests", "7. Unit Tests\MusicAPI.Engines.Tests\MusicAPI.Engines.Tests.csproj", "{7A9AA1DB-C88B-4A6A-8388-B0E60230A835}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +72,14 @@ Global
 		{1ECDAC8B-589A-460D-A0DB-BC822121301D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1ECDAC8B-589A-460D-A0DB-BC822121301D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1ECDAC8B-589A-460D-A0DB-BC822121301D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{330690AE-DB1F-4A76-B742-27DF97CA8CE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{330690AE-DB1F-4A76-B742-27DF97CA8CE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{330690AE-DB1F-4A76-B742-27DF97CA8CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{330690AE-DB1F-4A76-B742-27DF97CA8CE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A9AA1DB-C88B-4A6A-8388-B0E60230A835}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A9AA1DB-C88B-4A6A-8388-B0E60230A835}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A9AA1DB-C88B-4A6A-8388-B0E60230A835}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A9AA1DB-C88B-4A6A-8388-B0E60230A835}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +92,8 @@ Global
 		{2D5E049A-25DF-4DD3-9212-57BE862A1257} = {201A3D81-097F-4334-B553-0F398F4368D6}
 		{77596EA2-FFA2-4AD0-9B8D-0CE1BC80966E} = {201A3D81-097F-4334-B553-0F398F4368D6}
 		{1ECDAC8B-589A-460D-A0DB-BC822121301D} = {201A3D81-097F-4334-B553-0F398F4368D6}
+		{330690AE-DB1F-4A76-B742-27DF97CA8CE9} = {5ADCED76-75AF-4E36-AC4A-5E4335C99083}
+		{7A9AA1DB-C88B-4A6A-8388-B0E60230A835} = {201A3D81-097F-4334-B553-0F398F4368D6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DCB13667-0DBB-49F8-A833-8286E7AA2A17}

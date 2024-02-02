@@ -7,27 +7,19 @@ namespace MusicAPI.Accessors
 {
     public class SpotifyAccessor(IHttpClientFactory httpClientFactory) : ISpotifyAccessor
     {
-        private const string BaseUri = "https://api.spotify.com/v1";
-
-        public async Task<UserProfile> GetCurrentUserProfileAsync(string bearerToken)
+        public async Task<UserProfile> GetCurrentUserProfileAsync(string bearerToken, string queryString)
         {
             if (string.IsNullOrWhiteSpace(bearerToken))
             {
                 throw new ArgumentNullException(nameof(bearerToken));
             }
 
-            var httpClient = httpClientFactory.CreateClient();
+            if (string.IsNullOrWhiteSpace(queryString))
+            {
+                throw new ArgumentNullException(nameof(queryString));
+            }
 
-            httpClient
-                .DefaultRequestHeaders
-                .Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
-
-            var httpRequestMessage = new HttpRequestMessage(
-                HttpMethod.Get,
-                new Uri($"{BaseUri}/me"));
-
-            var response = await httpClient
-                .SendAsync(httpRequestMessage);
+            var response = await ExecuteGetRequest(bearerToken, queryString);
 
             if (response.IsSuccessStatusCode)
             {
@@ -41,7 +33,59 @@ namespace MusicAPI.Accessors
                 return userProfile ?? new UserProfile();
             }
 
-            throw new HttpRequestException($"Unable to retrieve user profile information from {BaseUri}");
+            throw new HttpRequestException($"Unable to retrieve user profile information from {queryString}");
+        }
+
+        public async Task<SearchResult> GetSearchAsync(string bearerToken, string queryString)
+        {
+            if (string.IsNullOrWhiteSpace(bearerToken))
+            {
+                throw new ArgumentNullException(nameof(bearerToken));
+            }
+
+            if (string.IsNullOrWhiteSpace(queryString))
+            {
+                throw new ArgumentNullException(nameof(queryString));
+            }
+
+            var response = await ExecuteGetRequest(bearerToken, queryString);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent =  await response
+                    .Content
+                    .ReadAsStringAsync();
+
+                var searchResult = JsonSerializer
+                    .Deserialize<SearchResult>(responseContent);
+
+                return searchResult ?? new SearchResult();
+            }
+
+            throw new HttpRequestException($"Unable to retrieve Search Data using the request {queryString}");
+        }
+
+        private async Task<HttpResponseMessage> ExecuteGetRequest(string bearerToken, string queryString)
+        {
+            var httpClient = SetupHttpClient(bearerToken);
+
+            var httpRequestMessage = new HttpRequestMessage(
+                HttpMethod.Get,
+                new Uri(queryString));
+
+            return await httpClient
+                .SendAsync(httpRequestMessage);
+        }
+
+        private HttpClient SetupHttpClient(string bearerToken)
+        {
+            var httpClient = httpClientFactory.CreateClient();
+
+            httpClient
+                .DefaultRequestHeaders
+                .Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+
+            return httpClient;
         }
     }
 }

@@ -1,0 +1,47 @@
+﻿using MusicAPI.Engines.Interfaces;
+
+namespace MusicAPI.Engines
+{
+    public class QueryEngine : IQueryEngine
+    {
+        private const string SpotifyBaseUri = "https://api.spotify.com/v1";
+
+        public string BuildCurrentUserProfileQueryString()
+        {
+            return $"{SpotifyBaseUri}/me";
+        }
+
+        public string BuildSpotifySearchQueryString(
+            string searchQuery,
+            string searchType,
+            string marketCode,
+            int? limit,
+            int? offset,
+            string? includeExternal = "")
+        {
+            // Base request string using Required parameters/Parameters that are defaulted
+            var requestString = $"{SpotifyBaseUri}/search?q={searchQuery}" +
+                $"&type={searchType.ToLower()}" +
+                $"&market={marketCode.ToUpper()}";
+
+            
+            if (limit != null)
+            {
+                requestString += $"&limit={limit}";
+            }
+
+            if (offset != null)
+            {
+                requestString += $"&offset={offset}";
+            }
+
+            // Optionally add additional parameters to query string if present.
+            if (!string.IsNullOrWhiteSpace(includeExternal))
+            {
+                requestString += $"&include_external={includeExternal}";
+            }
+
+            return requestString;
+        }
+    }
+}
