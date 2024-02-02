@@ -11,7 +11,7 @@ namespace MusicAPI.Accessors.DataTransferObjects
         public Followers Followers { get; set; } = new Followers();
 
         [JsonPropertyName("genres")]
-        public string[] Genres { get; set; } = Array.Empty<string>();
+        public string[] Genres { get; set; } = [];
 
         [JsonPropertyName("href")]
         public string Href { get; set; } = string.Empty;
@@ -20,7 +20,7 @@ namespace MusicAPI.Accessors.DataTransferObjects
         public string Id {  get; set; } = string.Empty;
 
         [JsonPropertyName("images")]
-        public Image[] Images { get; set; } = Array.Empty<Image>();
+        public Image[] Images { get; set; } = [];
 
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;

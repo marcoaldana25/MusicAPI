@@ -93,7 +93,7 @@ namespace MusicAPI.Accessors
             return httpClient;
         }
 
-        private void ValidateParameters(string bearerToken, string queryString)
+        private static void ValidateParameters(string bearerToken, string queryString)
         {
             if (string.IsNullOrWhiteSpace(bearerToken))
             {
