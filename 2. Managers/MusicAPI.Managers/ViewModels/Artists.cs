@@ -14,6 +14,6 @@
 
         public int Total { get; set; } = 0;
 
-        public Artist[] Items { get; set; } = Array.Empty<Artist>();
+        public Artist[] Items { get; set; } = [];
     }
 }

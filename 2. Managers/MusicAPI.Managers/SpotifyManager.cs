@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MusicAPI.Accessors.DataTransferObjects;
 using MusicAPI.Accessors.Interfaces;
 using MusicAPI.Engines.Interfaces;
 using MusicAPI.Managers.Interfaces;
