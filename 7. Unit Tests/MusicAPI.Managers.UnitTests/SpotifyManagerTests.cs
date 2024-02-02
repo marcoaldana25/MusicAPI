@@ -104,6 +104,7 @@ namespace MusicAPI.Managers.Tests
         [Test]
         public async Task GetArtistAsync_ShouldReturnArtist()
         {
+            // Arrange
             var mockAuthorizationAccessor = GetMockAuthorizationAccessor();
 
             var mockQueryEngine = new Mock<IQueryEngine>(MockBehavior.Strict);
