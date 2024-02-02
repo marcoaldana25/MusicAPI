@@ -74,5 +74,21 @@ namespace MusicAPI.Controllers
 
             return Ok(searchResult);
         }
+
+        /// <summary>
+        /// Retrieves Spotify catalog information for a single artist identified by their unique Spotify ID.
+        /// </summary>
+        /// <param name="artistId">The unique spotify artist id returned from GET Search</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("/Artist")]
+        [Produces(typeof(OkObjectResult))]
+        public async Task<IActionResult> GetArtistAsync([Required] string artistId)
+        {
+            var artist = await spotifyManager
+                .GetArtistAsync(artistId);
+
+            return Ok(artist);
+        }
     }
 }

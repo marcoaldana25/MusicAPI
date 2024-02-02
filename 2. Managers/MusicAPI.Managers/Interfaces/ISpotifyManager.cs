@@ -28,5 +28,7 @@ namespace MusicAPI.Managers.Interfaces
             int? limit = 20,
             int? offset = 0,
             string? includeExternal = "");
+
+        Task<ViewModels.Artist> GetArtistAsync(string artistId);
     }
 }

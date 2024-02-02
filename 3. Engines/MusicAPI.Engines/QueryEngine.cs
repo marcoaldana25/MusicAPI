@@ -43,5 +43,10 @@ namespace MusicAPI.Engines
 
             return requestString;
         }
+
+        public string BuildGetArtistQueryString(string artistId)
+        {
+            return $"{SpotifyBaseUri}/artists/{artistId}";
+        }
     }
 }

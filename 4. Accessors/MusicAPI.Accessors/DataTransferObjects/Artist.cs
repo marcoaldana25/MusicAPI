@@ -26,7 +26,7 @@ namespace MusicAPI.Accessors.DataTransferObjects
         public string Name { get; set; } = string.Empty;
 
         [JsonPropertyName("popularity")]
-        public int Popularity { get; set; } = 0;
+        public decimal Popularity { get; set; } = 0;
 
         [JsonPropertyName("type")]
         public string Type { get; set; } = string.Empty;

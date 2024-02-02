@@ -9,15 +9,7 @@ namespace MusicAPI.Accessors
     {
         public async Task<UserProfile> GetCurrentUserProfileAsync(string bearerToken, string queryString)
         {
-            if (string.IsNullOrWhiteSpace(bearerToken))
-            {
-                throw new ArgumentNullException(nameof(bearerToken));
-            }
-
-            if (string.IsNullOrWhiteSpace(queryString))
-            {
-                throw new ArgumentNullException(nameof(queryString));
-            }
+            ValidateParameters(bearerToken, queryString);
 
             var response = await ExecuteGetRequest(bearerToken, queryString);
 
@@ -38,21 +30,13 @@ namespace MusicAPI.Accessors
 
         public async Task<SearchResult> GetSearchAsync(string bearerToken, string queryString)
         {
-            if (string.IsNullOrWhiteSpace(bearerToken))
-            {
-                throw new ArgumentNullException(nameof(bearerToken));
-            }
-
-            if (string.IsNullOrWhiteSpace(queryString))
-            {
-                throw new ArgumentNullException(nameof(queryString));
-            }
+            ValidateParameters(bearerToken, queryString);
 
             var response = await ExecuteGetRequest(bearerToken, queryString);
 
             if (response.IsSuccessStatusCode)
             {
-                var responseContent =  await response
+                var responseContent = await response
                     .Content
                     .ReadAsStringAsync();
 
@@ -63,6 +47,27 @@ namespace MusicAPI.Accessors
             }
 
             throw new HttpRequestException($"Unable to retrieve Search Data using the request {queryString}");
+        }
+
+        public async Task<Artist> GetArtistAsync(string bearerToken, string queryString)
+        {
+            ValidateParameters(bearerToken, queryString);
+
+            var response = await ExecuteGetRequest(bearerToken, queryString);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response
+                    .Content
+                    .ReadAsStringAsync();
+
+                var artist = JsonSerializer
+                    .Deserialize<Artist>(responseContent);
+
+                return artist ?? new Artist();
+            }
+
+            throw new HttpRequestException($"Unable to retrieve Artist data using the request {queryString}");
         }
 
         private async Task<HttpResponseMessage> ExecuteGetRequest(string bearerToken, string queryString)
@@ -86,6 +91,19 @@ namespace MusicAPI.Accessors
                 .Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
 
             return httpClient;
+        }
+
+        private void ValidateParameters(string bearerToken, string queryString)
+        {
+            if (string.IsNullOrWhiteSpace(bearerToken))
+            {
+                throw new ArgumentNullException(nameof(bearerToken));
+            }
+
+            if (string.IsNullOrWhiteSpace(queryString))
+            {
+                throw new ArgumentNullException(nameof(queryString));
+            }
         }
     }
 }
