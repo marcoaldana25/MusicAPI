@@ -1,10 +1,4 @@
-﻿using Moq;
-using Moq.Protected;
-using MusicAPI.Accessors.DataTransferObjects;
-using System.Diagnostics.CodeAnalysis;
-using System.Text.Json;
-
-namespace MusicAPI.Accessors.Tests
+﻿namespace MusicAPI.Accessors.Tests
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]

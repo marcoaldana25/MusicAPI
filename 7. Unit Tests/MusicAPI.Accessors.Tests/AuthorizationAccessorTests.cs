@@ -1,12 +1,8 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
-using Moq.Protected;
-using MusicAPI.Accessors.DataTransferObjects;
 using MusicAPI.Utilities.Interfaces;
-using System.Diagnostics.CodeAnalysis;
 using System.Net;
-using System.Text.Json;
+
 
 namespace MusicAPI.Accessors.Tests
 {

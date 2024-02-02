@@ -19,28 +19,20 @@ namespace MusicAPI.Engines
             int? offset = 0,
             string? includeExternal = "")
         {
-            // Base request string using Required parameters
+            // Base request string using Required parameters/Parameters that are defaulted
             var requestString = $"{SpotifyBaseUri}/search?q={searchQuery}" +
                 $"&type={searchType.ToLower()}" +
-                $"&market={marketCode.ToUpper()}";
+                $"&market={marketCode.ToUpper()}" +
+                $"&limit={limit}" +
+                $"&offset={offset}";
 
             // Optionally add additional parameters to query string if present.
-            if (limit != null)
-            {
-                requestString += $"&limit={limit}";
-            }
-
-            if (offset != null)
-            {
-                requestString += $"&offset={offset}";
-            }
-
             if (!string.IsNullOrWhiteSpace(includeExternal))
             {
                 requestString += $"&include_external={includeExternal}";
             }
 
-            return requestString;
+            return System.Web.HttpUtility.UrlEncode(requestString);
         }
     }
 }
