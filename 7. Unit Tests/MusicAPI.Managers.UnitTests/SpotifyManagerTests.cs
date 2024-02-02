@@ -12,10 +12,7 @@ namespace MusicAPI.Managers.Tests
         public async Task GetSpotifyAccoutnAsync_ShouldReturnUserProfile()
         {
             // Arrange
-            var mockAuthorizationAccessor = new Mock<IAuthorizationAccessor>(MockBehavior.Strict);
-            mockAuthorizationAccessor
-                .Setup(authorizationAccessor => authorizationAccessor.RequestAccessTokenAsync())
-                .ReturnsAsync("Bearer Token");
+            var mockAuthorizationAccessor = GetMockAuthorizationAccessor();
 
             var mockQueryEngine = new Mock<IQueryEngine>(MockBehavior.Strict);
             mockQueryEngine
@@ -57,10 +54,7 @@ namespace MusicAPI.Managers.Tests
         public async Task GetSearchAsync_ShouldReturnSearchResult()
         {
             // Arrange
-            var mockAuthorizationAccessor = new Mock<IAuthorizationAccessor>(MockBehavior.Strict);
-            mockAuthorizationAccessor
-                .Setup(authorizationAccessor => authorizationAccessor.RequestAccessTokenAsync())
-                .ReturnsAsync("Bearer Token");
+            var mockAuthorizationAccessor = GetMockAuthorizationAccessor();
 
             var mockQueryEngine = new Mock<IQueryEngine>(MockBehavior.Strict);
             mockQueryEngine
@@ -105,6 +99,59 @@ namespace MusicAPI.Managers.Tests
                         It.Is<string>(bearerToken => bearerToken.Equals("Bearer Token")),
                         It.Is<string>(queryString => queryString.Equals("http://localhost"))),
                     Times.Once);
+        }
+
+        [Test]
+        public async Task GetArtistAsync_ShouldReturnArtist()
+        {
+            // Arrange
+            var mockAuthorizationAccessor = GetMockAuthorizationAccessor();
+
+            var mockQueryEngine = new Mock<IQueryEngine>(MockBehavior.Strict);
+            mockQueryEngine
+                .Setup(queryEngine => queryEngine.BuildGetArtistQueryString(
+                    It.IsAny<string>()))
+                .Returns("http://localhost");
+
+            var mockSpotifyAccessor = new Mock<ISpotifyAccessor>(MockBehavior.Strict);
+            mockSpotifyAccessor
+                .Setup(spotifyAccessor => spotifyAccessor.GetArtistAsync(
+                    It.IsAny<string>(),
+                    It.IsAny<string>()))
+                .ReturnsAsync(new Accessors.DataTransferObjects.Artist());
+
+            var mockMapper = new Mock<IMapper>(MockBehavior.Strict);
+            mockMapper
+                .Setup(mapper => mapper.Map<ViewModels.Artist>(It.IsAny<Accessors.DataTransferObjects.Artist>()))
+                .Returns(new ViewModels.Artist());
+
+            var spotifyManager = new SpotifyManager(
+                mockAuthorizationAccessor.Object,
+                mockMapper.Object,
+                mockSpotifyAccessor.Object,
+                mockQueryEngine.Object);
+
+            // Act
+            var artist = await spotifyManager
+                .GetArtistAsync("artistId");
+
+            // Assert/Verify
+            mockSpotifyAccessor
+                .Verify(spotifyAccessor =>
+                    spotifyAccessor.GetArtistAsync(
+                        It.Is<string>(bearerToken => bearerToken.Equals("Bearer Token")),
+                        It.Is<string>(queryString => queryString.Equals("http://localhost"))),
+                    Times.Once);
+        }
+
+        private static Mock<IAuthorizationAccessor> GetMockAuthorizationAccessor()
+        {
+            var mockAuthorizationAccessor = new Mock<IAuthorizationAccessor>(MockBehavior.Strict);
+            mockAuthorizationAccessor
+                .Setup(authorizationAccessor => authorizationAccessor.RequestAccessTokenAsync())
+                .ReturnsAsync("Bearer Token");
+
+            return mockAuthorizationAccessor;
         }
     }
 }

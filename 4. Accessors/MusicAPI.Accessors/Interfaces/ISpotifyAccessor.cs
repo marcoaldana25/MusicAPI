@@ -19,5 +19,13 @@ namespace MusicAPI.Accessors.Interfaces
         /// <param name="queryString"></param>
         /// <returns></returns>
         Task<SearchResult> GetSearchAsync(string bearerToken, string queryString);
+
+        /// <summary>
+        /// Communicates with Spotify's Web API to retrieve catalog information for a single artist.
+        /// </summary>
+        /// <param name="bearerToken"></param>
+        /// <param name="queryString"></param>
+        /// <returns></returns>
+        Task<Artist> GetArtistAsync(string bearerToken, string queryString);
     }
 }

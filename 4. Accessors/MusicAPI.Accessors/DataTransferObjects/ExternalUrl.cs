@@ -7,15 +7,10 @@ namespace MusicAPI.Accessors.DataTransferObjects
     /// </summary>
     public class ExternalUrl
     {
-        public ExternalUrl()
-        {
-            Spotify = string.Empty;
-        }
-
         /// <summary>
         /// The Spotify URL for the object.
         /// </summary>
         [JsonPropertyName("spotify")]
-        public string Spotify {  get; set; }
+        public string Spotify {  get; set; } = string.Empty;
     }
 }

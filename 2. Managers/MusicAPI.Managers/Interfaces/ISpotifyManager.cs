@@ -28,5 +28,12 @@ namespace MusicAPI.Managers.Interfaces
             int? limit = 20,
             int? offset = 0,
             string? includeExternal = "");
+
+        /// <summary>
+        /// Manager method for directing traffic to retrieve Artist data from Spotify's GET /artist/{id} endpoint.
+        /// </summary>
+        /// <param name="artistId"></param>
+        /// <returns></returns>
+        Task<ViewModels.Artist> GetArtistAsync(string artistId);
     }
 }

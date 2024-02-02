@@ -23,6 +23,6 @@ namespace MusicAPI.Accessors.DataTransferObjects
         public int Total { get; set; } = 0;
 
         [JsonPropertyName("items")]
-        public Artist[] Items { get; set; } = Array.Empty<Artist>();
+        public Artist[] Items { get; set; } = [];
     }
 }
