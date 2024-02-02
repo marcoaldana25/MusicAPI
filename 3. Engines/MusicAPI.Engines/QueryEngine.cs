@@ -15,16 +15,25 @@ namespace MusicAPI.Engines
             string searchQuery,
             string searchType,
             string marketCode,
-            int? limit = 20,
-            int? offset = 0,
+            int? limit,
+            int? offset,
             string? includeExternal = "")
         {
             // Base request string using Required parameters/Parameters that are defaulted
             var requestString = $"{SpotifyBaseUri}/search?q={searchQuery}" +
                 $"&type={searchType.ToLower()}" +
-                $"&market={marketCode.ToUpper()}" +
-                $"&limit={limit}" +
-                $"&offset={offset}";
+                $"&market={marketCode.ToUpper()}";
+
+            
+            if (limit != null)
+            {
+                requestString += $"&limit={limit}";
+            }
+
+            if (offset != null)
+            {
+                requestString += $"&offset={offset}";
+            }
 
             // Optionally add additional parameters to query string if present.
             if (!string.IsNullOrWhiteSpace(includeExternal))
@@ -32,7 +41,7 @@ namespace MusicAPI.Engines
                 requestString += $"&include_external={includeExternal}";
             }
 
-            return System.Web.HttpUtility.UrlEncode(requestString);
+            return requestString;
         }
     }
 }

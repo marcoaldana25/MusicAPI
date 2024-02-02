@@ -27,11 +27,10 @@
 
             // Act
             var queryString = queryEngine
-                .BuildSpotifySearchQueryString("Daft Punk", "Artist", "ES");
+                .BuildSpotifySearchQueryString("Daft Punk", "Artist", "ES", null, null);
 
             // Assert
-            var expectedQueryString = System.Web.HttpUtility
-                .UrlEncode("https://api.spotify.com/v1/search?q=Daft Punk&type=artist&market=ES&limit=20&offset=0");
+            var expectedQueryString = "https://api.spotify.com/v1/search?q=Daft Punk&type=artist&market=ES";
 
             Assert.That(queryString, Is.EqualTo(expectedQueryString));
         }
@@ -47,8 +46,7 @@
                 .BuildSpotifySearchQueryString("Daft Punk", "Artist", "ES", 10, 1);
 
             // Assert
-            var expectedQueryString = System.Web.HttpUtility
-                .UrlEncode("https://api.spotify.com/v1/search?q=Daft Punk&type=artist&market=ES&limit=10&offset=1");
+            var expectedQueryString = "https://api.spotify.com/v1/search?q=Daft Punk&type=artist&market=ES&limit=10&offset=1";
 
             Assert.That(queryString, Is.EqualTo(expectedQueryString));
         }
@@ -64,8 +62,7 @@
                 .BuildSpotifySearchQueryString("Daft Punk", "Artist", "ES", 20, 0, "audio");
 
             // Assert
-            var expectedQueryString = System.Web.HttpUtility
-                .UrlEncode("https://api.spotify.com/v1/search?q=Daft Punk&type=artist&market=ES&limit=20&offset=0&include_external=audio");
+            var expectedQueryString = "https://api.spotify.com/v1/search?q=Daft Punk&type=artist&market=ES&limit=20&offset=0&include_external=audio";
 
             Assert.That(queryString, Is.EqualTo(expectedQueryString));
         }

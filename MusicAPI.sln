@@ -6,10 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Clients", "1. Clients", "{E8BE8FB4-C634-4E64-9F88-37894A0C9DF7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Managers", "2. Managers", "{EA012FC0-EA10-4E7A-9E79-7606B5675CE7}"
-	ProjectSection(SolutionItems) = preProject
-		1. Clients\MusicAPI\appsettings.Development.json = 1. Clients\MusicAPI\appsettings.Development.json
-		1. Clients\MusicAPI\appsettings.json = 1. Clients\MusicAPI\appsettings.json
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Engines", "3. Engines", "{5ADCED76-75AF-4E36-AC4A-5E4335C99083}"
 EndProject
