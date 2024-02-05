@@ -42,6 +42,40 @@ Music API does make use of a user secrets.json file to abstract out secure clien
 
 After following the steps listed above, set the runtime to **IIS Express** and hit the **Run Application** button within Visual Studio. You should be presented with a Swagger page for the Spotify Controller.
 
+## Container setup through Docker
+This app is configured to run through IIS Express for local development, and it is also setup to allow 
+build and run through a Docker container/image. This section will walk you through the steps to run from a docker container. More in depth instructions can be found
+from the microsoft documentation https://learn.microsoft.com/en-us/dotnet/core/docker/build-container?tabs=windows&pivots=dotnet-8-0
+
+1. Download Docker Desktop https://www.docker.com/products/docker-desktop/
+    1. For Docker Desktop to run, your PC will need to have virtualization enabled. The setup should warn if you if it's not currently enabled. Refer to your BIOS
+    to enable virtualization.
+1. Build & Publish the app
+    1. The microsoft documentation suggests first doing a build and publish of the app prior to setting up any docker contents.
+
+1. Create the Dockerfile **NOTE:** If you're cloning this down, there should be no need to alter this file really. This is more for information and documentation on setting up Docker
+    1. Follow along with the microsoft documentation as that's mostly what I followed. There were a few things I needed to add so consider the following:
+        - Expose ports 8080 and 8081 for HTTP and HTTPS respectively in the docker file
+            - `EXPOSE 8080`
+            - `EXPOSE 8081`
+        - Ensure both the build and publish steps are set to a Release configruation
+            - `RUN dotnet build ./MusicAPI.sln -c Release -o out`
+            - `RUN dotnet publish ./MusicAPI.sln -c Release -o out`
+        - The final step of the Dockerfile should link to the dll of the project you wish to run. In this case, it should point to the MusicAPI.dll
+            - `ENTRYPOINT["dotnet", "MusicAPI.dll"]`
+
+1. Once the Dockerfile is created, you'll need to create the image. use the following command to do so
+    1. `docker build -t music_api_image .`
+        - This process should kick off the Dockerfile script, which copies files, restores dependencies , builds and publishs a release, and creates the image under the name **music_api_image**
+
+1. Once the image is created, you can now create and start the container
+    1. `docker create --name MusicAPIContainer -p 8080:8080 music_api_image`
+        - This creates a new container named MusicAPIContainer, sets it to run on http://localhost:8080 using the image we created earlier 'music_api_image'
+    1. `docker start MusicAPIContainer`
+        - This starts the container and it should now be live listening at http://localhost:8080
+        - **NOTE:** I was expecting swagger to work after the deployment, but since it's deploying a release configuration swagger is disabled. I was able to hit the endpoints expected through 
+        Postman though.
+
 ## Making Requests
 Music API for Spotify follows the Authorization Code flow: https://developer.spotify.com/documentation/web-api/tutorials/getting-started
 
