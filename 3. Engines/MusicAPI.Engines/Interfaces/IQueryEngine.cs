@@ -32,5 +32,7 @@
         /// <param name="artistId"></param>
         /// <returns></returns>
         string BuildGetArtistQueryString(string artistId);
+
+        string BuildArtistTopTracksQueryString(string artistId, string marketCode);
     }
 }

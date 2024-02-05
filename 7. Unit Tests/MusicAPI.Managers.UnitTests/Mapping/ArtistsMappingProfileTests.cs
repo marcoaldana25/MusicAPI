@@ -1,5 +1,6 @@
 ﻿namespace MusicAPI.Managers.Tests.Mapping
 {
+#pragma warning disable CS8602
     [TestFixture]
     [ExcludeFromCodeCoverage]
     public class ArtistsMappingProfileTests

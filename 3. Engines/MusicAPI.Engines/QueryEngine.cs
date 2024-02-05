@@ -48,5 +48,10 @@ namespace MusicAPI.Engines
         {
             return $"{SpotifyBaseUri}/artists/{artistId}";
         }
+
+        public string BuildArtistTopTracksQueryString(string artistId, string marketCode)
+        {
+            return $"{SpotifyBaseUri}/artists/{artistId}/top-tracks?market={marketCode}";
+        }
     }
 }
