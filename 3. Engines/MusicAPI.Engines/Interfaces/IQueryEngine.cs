@@ -25,5 +25,12 @@
             int? limit,
             int? offset,
             string? includeExternal);
+
+        /// <summary>
+        /// Responsible for building a query string that targets Spotify's Web API GET /artists/{id} endpoint.
+        /// </summary>
+        /// <param name="artistId"></param>
+        /// <returns></returns>
+        string BuildGetArtistQueryString(string artistId);
     }
 }

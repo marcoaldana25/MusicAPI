@@ -6,40 +6,34 @@ using System.ComponentModel.DataAnnotations;
 namespace MusicAPI.Controllers
 {
     /// <summary>
-    /// Controller for Client integration targeting Spotify's Web API.
+    /// Controller for Client integration targeting Spotify's Web API, specifially around Artists information.
     /// </summary>
     /// <param name="spotifyManager"></param>
     [ApiController]
     [Route("api/[controller]")]
-    public class SpotifyController(ISpotifyManager spotifyManager) : ControllerBase
+    public class ArtistController(ISpotifyManager spotifyManager) : ControllerBase
     {
         /// <summary>
-        ///     Get detailed profile information about the current user (including the current user's username)
+        /// Retrieves Spotify catalog information for a single artist identified by their unique Spotify ID.
         /// </summary>
-        /// <returns>
-        ///     Detailed profile information about the current authorized user.
-        /// </returns>
+        /// <param name="artistId">The unique spotify artist id returned from GET Search</param>
+        /// <returns></returns>
         [HttpGet]
-        [Route("/GetAccountDetails")]
+        [Route("/Artist")]
         [Produces(typeof(OkObjectResult))]
-        public async Task<IActionResult> GetAccountDetails()
+        public async Task<IActionResult> GetArtistAsync([Required] string artistId)
         {
-            var spotifyAccount = await spotifyManager
-                .GetSpotifyAccountAsync();
+            var artist = await spotifyManager
+                .GetArtistAsync(artistId);
 
-            return Ok(spotifyAccount);
+            return Ok(artist);
         }
 
         /// <summary>
-        ///     Returns Spotify catalog information about Albums, Artists, Playlists, Tracks, Shows, Episodes,
-        ///     or Audiobooks that match a keyword string. Audiobooks are only available within the US, UK, Canada, Ireland,
-        ///     New Zealand and Australia markets.
+        ///     Returns Spotify catalog information about Artists that match a keyword string.
         /// </summary>
         /// <param name="searchQuery">
         ///     The search query.
-        /// </param>
-        /// <param name="searchType">
-        ///     Item type to execute the search across.
         /// </param>
         /// <param name="marketCode">
         ///     An ISO 3166-1 alpha-2 country code.
@@ -63,14 +57,13 @@ namespace MusicAPI.Controllers
         [Produces(typeof(OkObjectResult))]
         public async Task<IActionResult> GetSearchAsync(
             [Required] string searchQuery,
-            [Required] SearchType searchType,
             [Required] string marketCode,
             int? limit = null,
             int? offset = null,
             string? includeExternal = null)
         {
             var searchResult = await spotifyManager
-                .GetSearchAsync(searchQuery, searchType, marketCode, limit, offset, includeExternal);
+                .GetSearchAsync(searchQuery, SearchType.Artist, marketCode, limit, offset, includeExternal);
 
             return Ok(searchResult);
         }

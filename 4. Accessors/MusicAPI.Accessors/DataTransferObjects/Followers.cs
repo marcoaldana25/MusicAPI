@@ -7,22 +7,16 @@ namespace MusicAPI.Accessors.DataTransferObjects
     /// </summary>
     public class Followers
     {
-        public Followers()
-        {
-            Href = string.Empty;
-            Total = 0;
-        }
-
         /// <summary>
         /// This will alwaysb e set to null, as the Web API does not currently support it.
         /// </summary>
         [JsonPropertyName("href")]
-        public string Href { get; set; }
+        public string Href { get; set; } = string.Empty;
 
         /// <summary>
         /// Total number of followers.
         /// </summary>
         [JsonPropertyName("total")]
-        public int Total { get; set; }
+        public decimal Total { get; set; }
     }
 }

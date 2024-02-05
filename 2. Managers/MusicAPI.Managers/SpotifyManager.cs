@@ -53,5 +53,20 @@ namespace MusicAPI.Managers
             return mapper
                 .Map<ViewModels.SearchResult>(searchResultDto);
         }
+
+        public async Task<ViewModels.Artist> GetArtistAsync(string artistId)
+        {
+            var bearerToken = await authorizationAccessor
+                .RequestAccessTokenAsync();
+
+            var queryString = queryEngine
+                .BuildGetArtistQueryString(artistId);
+
+            var artistDto = await spotifyAccessor
+                .GetArtistAsync(bearerToken, queryString);
+
+            return mapper
+                .Map<ViewModels.Artist>(artistDto);
+        }
     }
 }
