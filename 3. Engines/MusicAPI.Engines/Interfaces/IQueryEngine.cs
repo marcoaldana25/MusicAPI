@@ -32,5 +32,13 @@
         /// <param name="artistId"></param>
         /// <returns></returns>
         string BuildGetArtistQueryString(string artistId);
+
+        /// <summary>
+        /// Responsible for building a query string that targets Spotify's Web API GET /artists/{id}/top-tracks endpoint.
+        /// </summary>
+        /// <param name="artistId"></param>
+        /// <param name="marketCode"></param>
+        /// <returns></returns>
+        string BuildArtistTopTracksQueryString(string artistId, string marketCode);
     }
 }

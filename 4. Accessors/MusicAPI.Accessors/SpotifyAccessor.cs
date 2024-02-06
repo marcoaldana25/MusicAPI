@@ -70,6 +70,27 @@ namespace MusicAPI.Accessors
             throw new HttpRequestException($"Unable to retrieve Artist data using the request {queryString}");
         }
 
+        public async Task<TopTracks> GetTopTracksAsync(string bearerToken, string queryString)
+        {
+            ValidateParameters(bearerToken, queryString);
+
+            var response = await ExecuteGetRequest(bearerToken, queryString);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response
+                    .Content
+                    .ReadAsStringAsync();
+
+                var topTracks =  JsonSerializer
+                    .Deserialize<TopTracks>(responseContent);
+
+                return topTracks ?? new TopTracks();
+            }
+
+            throw new HttpRequestException($"Unable to retrieve Artist Top Tracks using the request {queryString}");
+        }
+
         private async Task<HttpResponseMessage> ExecuteGetRequest(string bearerToken, string queryString)
         {
             var httpClient = SetupHttpClient(bearerToken);

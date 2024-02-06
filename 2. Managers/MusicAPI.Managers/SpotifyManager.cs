@@ -24,7 +24,7 @@ namespace MusicAPI.Managers
                 .GetCurrentUserProfileAsync(bearerToken, queryString);
 
             return mapper
-                .Map<ViewModels.UserProfile>(userProfileDto);;
+                .Map<ViewModels.UserProfile>(userProfileDto) ?? new ViewModels.UserProfile();
         }
 
         public async Task<ViewModels.SearchResult> GetSearchAsync(
@@ -51,7 +51,7 @@ namespace MusicAPI.Managers
                 .GetSearchAsync(bearerToken, queryString);
 
             return mapper
-                .Map<ViewModels.SearchResult>(searchResultDto);
+                .Map<ViewModels.SearchResult>(searchResultDto) ?? new ViewModels.SearchResult(); ;
         }
 
         public async Task<ViewModels.Artist> GetArtistAsync(string artistId)
@@ -66,7 +66,22 @@ namespace MusicAPI.Managers
                 .GetArtistAsync(bearerToken, queryString);
 
             return mapper
-                .Map<ViewModels.Artist>(artistDto);
+                .Map<ViewModels.Artist>(artistDto) ?? new ViewModels.Artist(); ;
+        }
+
+        public async Task<ViewModels.TopTracks> GetArtistTopTracksAsync(string artistId, string marketCode)
+        {
+            var bearerToken = await authorizationAccessor
+                .RequestAccessTokenAsync();
+
+            var queryString = queryEngine
+                .BuildArtistTopTracksQueryString(artistId, marketCode);
+
+            var topTracksDto = await spotifyAccessor
+                .GetTopTracksAsync(bearerToken, queryString);
+
+            return mapper
+                .Map<ViewModels.TopTracks>(topTracksDto) ?? new ViewModels.TopTracks();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace MusicAPI.Controllers
         ///     Detailed profile information about the current authorized user.
         /// </returns>
         [HttpGet]
-        [Route("/GetAccountDetails")]
+        [Route("accountDetails")]
         [Produces(typeof(OkObjectResult))]
         public async Task<IActionResult> GetAccountDetails()
         {

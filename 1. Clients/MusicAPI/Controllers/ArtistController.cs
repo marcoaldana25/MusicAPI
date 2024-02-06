@@ -19,7 +19,6 @@ namespace MusicAPI.Controllers
         /// <param name="artistId">The unique spotify artist id returned from GET Search</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("/Artist")]
         [Produces(typeof(OkObjectResult))]
         public async Task<IActionResult> GetArtistAsync([Required] string artistId)
         {
@@ -53,7 +52,7 @@ namespace MusicAPI.Controllers
         ///     New Zealand and Australia markets.
         /// </returns>
         [HttpGet]
-        [Route("/Search")]
+        [Route("search")]
         [Produces(typeof(OkObjectResult))]
         public async Task<IActionResult> GetSearchAsync(
             [Required] string searchQuery,
@@ -66,6 +65,25 @@ namespace MusicAPI.Controllers
                 .GetSearchAsync(searchQuery, SearchType.Artist, marketCode, limit, offset, includeExternal);
 
             return Ok(searchResult);
+        }
+
+        /// <summary>
+        /// Gets Spotify catalog information about an artist's top tracks by country.
+        /// </summary>
+        /// <param name="artistId"></param>
+        /// <param name="marketCode"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("topTracks")]
+        [Produces(typeof(OkObjectResult))]
+        public async Task<IActionResult> GetArtistTopTracksAsync(
+            [Required] string artistId,
+            [Required] string marketCode)
+        {
+            var topTracks = await spotifyManager
+                .GetArtistTopTracksAsync(artistId, marketCode);
+
+            return Ok(topTracks);
         }
     }
 }

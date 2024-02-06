@@ -27,5 +27,13 @@ namespace MusicAPI.Accessors.Interfaces
         /// <param name="queryString"></param>
         /// <returns></returns>
         Task<Artist> GetArtistAsync(string bearerToken, string queryString);
+
+        /// <summary>
+        /// Communicates with Spotify's Web API to retreive the Top Tracks for a given artist.
+        /// </summary>
+        /// <param name="bearerToken"></param>
+        /// <param name="queryString"></param>
+        /// <returns></returns>
+        Task<TopTracks> GetTopTracksAsync(string bearerToken, string queryString);
     }
 }

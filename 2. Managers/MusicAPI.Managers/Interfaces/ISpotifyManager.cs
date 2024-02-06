@@ -35,5 +35,14 @@ namespace MusicAPI.Managers.Interfaces
         /// <param name="artistId"></param>
         /// <returns></returns>
         Task<ViewModels.Artist> GetArtistAsync(string artistId);
+
+        /// <summary>
+        /// Manager method for directing traffic to retrieve the Top Tracks for a given 
+        /// Artist using Spotify's GET /artist/{id}/top-tracks endpoint.
+        /// </summary>
+        /// <param name="artistId"></param>
+        /// <param name="marketCode"></param>
+        /// <returns></returns>
+        Task<ViewModels.TopTracks> GetArtistTopTracksAsync(string artistId, string marketCode);
     }
 }

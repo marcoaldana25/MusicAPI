@@ -301,5 +301,106 @@
             // Assert
             Assert.That(result.Id, Is.EqualTo(expectedArtistId));
         }
+
+        [Test]
+        public void GetTopTracksAsync_EmptyBearerToken_ShouldThrowArgumentNullException()
+        {
+            // Arrange
+            var mockHttpClientFactory = new Mock<IHttpClientFactory>(MockBehavior.Strict);
+
+            var spotifyAccesor = new SpotifyAccessor(mockHttpClientFactory.Object);
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+                await spotifyAccesor.GetTopTracksAsync(string.Empty, string.Empty));
+        }
+
+        [Test]
+        public void GetTopTracksAsync_EmptyQueryString_ShouldThrowArgumentNullException()
+        {
+            // Arrange
+            var mockHttpClientFactory = new Mock<IHttpClientFactory>(MockBehavior.Strict);
+
+            var spotifyAccessor = new SpotifyAccessor(mockHttpClientFactory.Object);
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+                await spotifyAccessor.GetTopTracksAsync("bearerToken", string.Empty));
+        }
+
+        [Test]
+        public void GetTopTracksAsync_UnsuccessfulStatusCode_ShouldThrowHttpRequestException()
+        {
+            // Arrange
+            var mockHttpClientFactory = new Mock<IHttpClientFactory>(MockBehavior.Strict);
+
+            var mockHttpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Strict);
+            mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = System.Net.HttpStatusCode.BadRequest
+                });
+
+            mockHttpClientFactory
+                .Setup(httpClientFactory => httpClientFactory.CreateClient(string.Empty))
+                .Returns(new HttpClient(mockHttpMessageHandler.Object));
+
+            var spotifyAccessor = new SpotifyAccessor(mockHttpClientFactory.Object);
+
+            // Act & Assert
+            Assert.ThrowsAsync<HttpRequestException>(async () =>
+                await spotifyAccessor.GetTopTracksAsync("bearer", "http://localhost"));
+        }
+
+        [Test]
+        public async Task GetTopTracksAsync_SuccessfulStatusCode_ShouldReturnTopTracks()
+        {
+            // Arrange
+            var mockHttpClientFactory = new Mock<IHttpClientFactory>(MockBehavior.Strict);
+            var mockHttpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Strict);
+
+            const string expectedTrackHref = "Expected Track Href";
+
+            var expectedTopTracks = new TopTracks
+            {
+                Tracks =
+                [
+                    new Track
+                    {
+                        Href = expectedTrackHref
+                    }
+                ]
+            };
+
+            mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = System.Net.HttpStatusCode.OK,
+                    Content = new StringContent(JsonSerializer.Serialize(expectedTopTracks))
+                });
+
+            mockHttpClientFactory
+                .Setup(httpClientFactory => httpClientFactory.CreateClient(string.Empty))
+                .Returns(new HttpClient(mockHttpMessageHandler.Object));
+
+            var spotifyAccessor = new SpotifyAccessor(mockHttpClientFactory.Object);
+
+            // Act
+            var topTracks = await spotifyAccessor
+                .GetTopTracksAsync("bearer", "http://localhost");
+
+            // Assert
+            Assert.That(topTracks.Tracks[0].Href, Is.EqualTo(expectedTrackHref));
+        }
     }
 }
