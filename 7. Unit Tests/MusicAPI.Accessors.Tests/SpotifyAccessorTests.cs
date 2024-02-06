@@ -360,6 +360,7 @@
         [Test]
         public async Task GetTopTracksAsync_SuccessfulStatusCode_ShouldReturnTopTracks()
         {
+            // Arrange
             var mockHttpClientFactory = new Mock<IHttpClientFactory>(MockBehavior.Strict);
             var mockHttpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Strict);
 

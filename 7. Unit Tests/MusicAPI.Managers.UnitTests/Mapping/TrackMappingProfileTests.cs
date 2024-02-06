@@ -83,18 +83,18 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.IsNotNull(trackViewModel.Album);
-                Assert.IsNotNull(trackViewModel.Artists);
+                Assert.That(trackViewModel.Album, Is.Not.Null);
+                Assert.That(trackViewModel.Artists, Is.Not.Null);
                 Assert.That(trackViewModel.AvailableMarkets[0], Is.EqualTo(expectedAvailableMarket));
                 Assert.That(trackViewModel.DiscNumber, Is.EqualTo(expectedDiscNumber));
                 Assert.That(trackViewModel.DurationInMilliseconds, Is.EqualTo(expectedDurationInMilliseconds));
                 Assert.That(trackViewModel.IsExplicit, Is.True);
-                Assert.IsNotNull(trackViewModel.ExternalIds);
-                Assert.IsNotNull(trackViewModel.ExternalUrls);
+                Assert.That(trackViewModel.ExternalIds, Is.Not.Null);
+                Assert.That(trackViewModel.ExternalUrls, Is.Not.Null);
                 Assert.That(trackViewModel.Href, Is.EqualTo(expectedTrackHref));
                 Assert.That(trackViewModel.Id, Is.EqualTo(expectedTrackId));
                 Assert.That(trackViewModel.IsPlayable, Is.True);
-                Assert.IsNotNull(trackViewModel.Restrictions);
+                Assert.That(trackViewModel.Restrictions, Is.Not.Null);
                 Assert.That(trackViewModel.Name, Is.EqualTo(expectedTrackName));
                 Assert.That(trackViewModel.Popularity, Is.EqualTo(expectedPopularity));
                 Assert.That(trackViewModel.PreviewUrl, Is.EqualTo(expectedPreviewUrl));

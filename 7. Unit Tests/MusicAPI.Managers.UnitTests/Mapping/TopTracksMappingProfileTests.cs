@@ -49,7 +49,7 @@
             var topTracksViewModel = Mapper.Map<ViewModels.TopTracks>(topTracksDataTransferObject);
 
             // Assert
-            Assert.IsNotNull(topTracksViewModel.Tracks);
+            Assert.That(topTracksViewModel.Tracks, Is.Not.Null);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿ using MusicAPI.Accessors.DataTransferObjects;
+﻿using MusicAPI.Accessors.DataTransferObjects;
 using MusicAPI.Accessors.Interfaces;
 using System.Net.Http.Headers;
 using System.Text.Json;
