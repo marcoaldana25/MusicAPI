@@ -98,5 +98,85 @@
 
             Assert.That(queryString, Is.EqualTo(expectedQueryString));
         }
+
+        [Test]
+        public void BuildArtistAlbumsQueryAString_RequiredParametersOnly_ShouldReturnQueryString()
+        {
+            // Arrange
+            var queryEngine = new QueryEngine();
+
+            // Act
+            var queryString = queryEngine
+                .BuildArtistAlbumsQueryString("artistId", "marketCode", null, null, null);
+
+            // Assert
+            const string expectedQueryString = "https://api.spotify.com/v1/artists/artistId/albums?market=marketCode";
+
+            Assert.That(queryString, Is.EqualTo(expectedQueryString));
+        }
+
+        [Test]
+        public void BuildArtistAlbumsQueryString_IncludeGroups_ShouldReturnQueryString()
+        {
+            // Arrange
+            var queryEngine = new QueryEngine();
+
+            // Act
+            var queryString = queryEngine
+                .BuildArtistAlbumsQueryString("artistId", "marketCode", "includeGroups", null, null);
+
+            // Assert
+            const string expectedQueryString = "https://api.spotify.com/v1/artists/artistId/albums?market=marketCode&include_groups=includeGroups";
+
+            Assert.That(queryString, Is.EqualTo(expectedQueryString));
+        }
+
+        [Test]
+        public void BuildArtistAlbumsQueryString_Limit_ShouldReturnQueryString()
+        {
+            // Arrange
+            var queryEngine = new QueryEngine();
+
+            // Act
+            var queryString = queryEngine
+                .BuildArtistAlbumsQueryString("artistId", "marketCode", null, 10, null);
+
+            // Assert
+            const string expectedQueryString = "https://api.spotify.com/v1/artists/artistId/albums?market=marketCode&limit=10";
+
+            Assert.That(queryString, Is.EqualTo(expectedQueryString));
+        }
+
+        [Test]
+        public void BuildArtistAlbumsQueryString_Offset_ShouldReturnQueryString()
+        {
+            // Arrange
+            var queryEngine = new QueryEngine();
+
+            // Act
+            var queryString = queryEngine
+                .BuildArtistAlbumsQueryString("artistId", "marketCode", null, null, 1);
+
+            // Assert
+            const string expectedQueryString = "https://api.spotify.com/v1/artists/artistId/albums?market=marketCode&offset=1";
+
+            Assert.That(queryString, Is.EqualTo(expectedQueryString));
+        }
+
+        [Test]
+        public void BuildArtistAlbumsQueryString_AllParameters_ShouldReturnQueryString()
+        {
+            // Arrange
+            var queryEngine = new QueryEngine();
+
+            // Act
+            var queryString = queryEngine
+                .BuildArtistAlbumsQueryString("artistId", "marketCode", "includeGroups", 10, 1);
+
+            // Assert
+            const string expectedQueryString = "https://api.spotify.com/v1/artists/artistId/albums?market=marketCode&include_groups=includeGroups&limit=10&offset=1";
+
+            Assert.That(queryString, Is.EqualTo(expectedQueryString));
+        }
     }
 }
