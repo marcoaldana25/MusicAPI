@@ -40,5 +40,21 @@
         /// <param name="marketCode"></param>
         /// <returns></returns>
         string BuildArtistTopTracksQueryString(string artistId, string marketCode);
+
+        /// <summary>
+        /// Responsible for building a query string that targets Spotify's Web API GET /artists/{id}/albums endpoint.
+        /// </summary>
+        /// <param name="artistId"></param>
+        /// <param name="marketCode"></param>
+        /// <param name="includeGroups"></param>
+        /// <param name="limit"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        string BuildArtistAlbumsQueryString(
+            string artistId, 
+            string marketCode, 
+            string? includeGroups, 
+            int? limit, 
+            int? offset);
     }
 }

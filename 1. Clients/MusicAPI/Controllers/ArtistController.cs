@@ -70,8 +70,12 @@ namespace MusicAPI.Controllers
         /// <summary>
         /// Gets Spotify catalog information about an artist's top tracks by country.
         /// </summary>
-        /// <param name="artistId"></param>
-        /// <param name="marketCode"></param>
+        /// <param name="artistId">
+        ///     The Spotify ID of the artist.
+        /// </param>
+        /// <param name="marketCode">
+        ///     An ISO 3166-1 alpha-2 country code.
+        /// </param>
         /// <returns></returns>
         [HttpGet]
         [Route("topTracks")]
@@ -84,6 +88,42 @@ namespace MusicAPI.Controllers
                 .GetArtistTopTracksAsync(artistId, marketCode);
 
             return Ok(topTracks);
+        }
+
+        /// <summary>
+        /// Gets Spotify catalog information about an artist's albums.
+        /// </summary>
+        /// <param name="artistId">
+        ///     The Spotify ID of the artist.
+        /// </param>
+        /// <param name="marketCode">
+        ///     An ISO 3166-1 alpha-2 country code.
+        /// </param>
+        /// <param name="includeGroups">
+        ///     A comma-separated list of keywords that will be used to filter the response. if not supplied, all album types will
+        ///     be returned. Valid values are album, single, appears_on, compilation. For example: include_groups=album,single
+        /// </param>
+        /// <param name="limit">
+        ///     The maximum number of items to return. Default: 20. Minimum: 1, Maximum: 50.
+        /// </param>
+        /// <param name="offset">
+        ///     The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.
+        /// </param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("albums")]
+        [Produces(typeof(OkObjectResult))]
+        public async Task<IActionResult> GetAlbumsAsync(
+            [Required] string artistId,
+            [Required] string marketCode,
+            string? includeGroups = null,
+            int? limit = null,
+            int? offset = null)
+        {
+            var albums = await spotifyManager
+                .GetAlbumsAsync(artistId, marketCode, includeGroups, limit, offset);
+
+            return Ok(albums);
         }
     }
 }
