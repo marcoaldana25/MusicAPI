@@ -14,6 +14,6 @@
 
         public decimal Total { get; set; } = 0;
 
-        public Album[] Items { get; set; }
+        public Album[] Items { get; set; } = [];
     }
 }
