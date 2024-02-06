@@ -82,5 +82,21 @@
 
             Assert.That(queryString, Is.EqualTo(expectedQueryString));
         }
+
+        [Test]
+        public void BuildArtistTopTracksQueryString_ShouldReturnQueryString()
+        {
+            // Arrange
+            var queryEngine = new QueryEngine();
+
+            // Act
+            var queryString = queryEngine
+                .BuildArtistTopTracksQueryString("artistId", "marketCode");
+
+            // Assert
+            const string expectedQueryString = "https://api.spotify.com/v1/artists/artistId/top-tracks?market=marketCode";
+
+            Assert.That(queryString, Is.EqualTo(expectedQueryString));
+        }
     }
 }
