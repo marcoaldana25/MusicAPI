@@ -44,6 +44,6 @@ namespace MusicAPI.Accessors.DataTransferObjects
         /// Array of Albums objects.
         /// </summary>
         [JsonPropertyName("items")]
-        public Album[] Items { get; set; }
+        public Album[] Items { get; set; } = [];
     }
 }
