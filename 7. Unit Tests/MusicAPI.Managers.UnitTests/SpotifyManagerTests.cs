@@ -144,6 +144,50 @@ namespace MusicAPI.Managers.Tests
                     Times.Once);
         }
 
+        [Test]
+        public async Task GetArtistTopTracksAsync_ShouldReturnTopTracks()
+        {
+            // Arrange
+            var mockAuthorizationAccessor = GetMockAuthorizationAccessor();
+
+            var mockQueryEngine = new Mock<IQueryEngine>(MockBehavior.Strict);
+            mockQueryEngine
+                .Setup(queryEngine => queryEngine.BuildArtistTopTracksQueryString(
+                    It.IsAny<string>(),
+                    It.IsAny<string>()))
+                .Returns("http://localhost");
+
+            var mockSpotifyAccessor = new Mock<ISpotifyAccessor>(MockBehavior.Strict);
+            mockSpotifyAccessor
+                .Setup(spotifyAccessor => spotifyAccessor.GetTopTracksAsync(
+                    It.IsAny<string>(),
+                    It.IsAny<string>()))
+                .ReturnsAsync(new Accessors.DataTransferObjects.TopTracks());
+
+            var mockMapper = new Mock<IMapper>(MockBehavior.Strict);
+            mockMapper
+                .Setup(mapper => mapper.Map<ViewModels.TopTracks>(It.IsAny<Accessors.DataTransferObjects.TopTracks>()))
+                .Returns(new ViewModels.TopTracks());
+
+            var spotifyManager = new SpotifyManager(
+                mockAuthorizationAccessor.Object,
+                mockMapper.Object,
+                mockSpotifyAccessor.Object,
+                mockQueryEngine.Object);
+
+            // Act
+            var topTracks = await spotifyManager
+                .GetArtistTopTracksAsync("artistId", "marketCode");
+
+            // Assert
+            mockSpotifyAccessor
+                .Verify(
+                    spotifyAccessor => spotifyAccessor.GetTopTracksAsync(
+                        It.Is<string>(bearerToken => bearerToken.Equals("Bearer Token")),
+                        It.Is<string>(queryString => queryString.Equals("http://localhost"))),
+                    Times.Once());
+        }
+
         private static Mock<IAuthorizationAccessor> GetMockAuthorizationAccessor()
         {
             var mockAuthorizationAccessor = new Mock<IAuthorizationAccessor>(MockBehavior.Strict);
