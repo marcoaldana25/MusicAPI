@@ -83,5 +83,30 @@ namespace MusicAPI.Managers
             return mapper
                 .Map<ViewModels.TopTracks>(topTracksDto) ?? new ViewModels.TopTracks();
         }
+
+        public async Task<ViewModels.Albums> GetAlbumsAsync(
+            string artistId,
+            string marketCode,
+            string? includeGroups = "",
+            int? limit = 20,
+            int? offset = 0)
+        {
+            var bearerToken = await authorizationAccessor
+                .RequestAccessTokenAsync();
+
+            var queryString = queryEngine
+                .BuildArtistAlbumsQueryString(
+                    artistId, 
+                    marketCode, 
+                    includeGroups, 
+                    limit, 
+                    offset);
+
+            var albums = await spotifyAccessor
+                .GetArtistAlbumsAsync(bearerToken, queryString);
+
+            return mapper
+                .Map<ViewModels.Albums>(albums) ?? new ViewModels.Albums();
+        }
     }
 }

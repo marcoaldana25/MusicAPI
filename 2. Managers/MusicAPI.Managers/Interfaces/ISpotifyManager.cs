@@ -44,5 +44,22 @@ namespace MusicAPI.Managers.Interfaces
         /// <param name="marketCode"></param>
         /// <returns></returns>
         Task<ViewModels.TopTracks> GetArtistTopTracksAsync(string artistId, string marketCode);
+
+        /// <summary>
+        /// Manager method for directing traffic to retrieve Albums for a given
+        /// Artist using Spotify's GET /artist/{id}/albums endpoint.
+        /// </summary>
+        /// <param name="artistId"></param>
+        /// <param name="marketCode"></param>
+        /// <param name="includeGroups"></param>
+        /// <param name="limit"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        Task<ViewModels.Albums> GetAlbumsAsync(
+            string artistId,
+            string marketCode,
+            string? includeGroups = "",
+            int? limit = 20,
+            int? offset = 0);
     }
 }

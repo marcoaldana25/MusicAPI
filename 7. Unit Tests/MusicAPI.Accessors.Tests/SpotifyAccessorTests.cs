@@ -402,5 +402,100 @@
             // Assert
             Assert.That(topTracks.Tracks[0].Href, Is.EqualTo(expectedTrackHref));
         }
+
+        [Test]
+        public void GetArtistAlbumsAsync_EmptyBearerToken_ShouldThrowArgumentNullException()
+        {
+            // Arrange
+            var mockHttpClientFactory = new Mock<IHttpClientFactory>(MockBehavior.Strict);
+
+            var spotifyAccesor = new SpotifyAccessor(mockHttpClientFactory.Object);
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+                await spotifyAccesor.GetArtistAlbumsAsync(string.Empty, string.Empty));
+        }
+
+        [Test]
+        public void GetArtistAlbumsAsync_EmptyQueryString_ShouldThrowArgumentNullException()
+        {
+            // Arrange
+            var mockHttpClientFactory = new Mock<IHttpClientFactory>(MockBehavior.Strict);
+
+            var spotifyAccessor = new SpotifyAccessor(mockHttpClientFactory.Object);
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+                await spotifyAccessor.GetArtistAlbumsAsync("bearerToken", string.Empty));
+        }
+
+        [Test]
+        public void GetArtistAlbumsAsync_UnsuccessfulStatusCode_ShouldThrowHttpRequestException()
+        {
+            // Arrange
+            var mockHttpClientFactory = new Mock<IHttpClientFactory>(MockBehavior.Strict);
+
+            var mockHttpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Strict);
+            mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = System.Net.HttpStatusCode.BadRequest
+                });
+
+            mockHttpClientFactory
+                .Setup(httpClientFactory => httpClientFactory.CreateClient(string.Empty))
+                .Returns(new HttpClient(mockHttpMessageHandler.Object));
+
+            var spotifyAccessor = new SpotifyAccessor(mockHttpClientFactory.Object);
+
+            // Act & Assert
+            Assert.ThrowsAsync<HttpRequestException>(async () =>
+                await spotifyAccessor.GetArtistAlbumsAsync("bearer", "http://localhost"));
+        }
+
+        [Test]
+        public async Task GetArtistAlbumsAsync_SuccessfulStatusCode_ShouldReturnTopTracks()
+        {
+            // Arrange
+            var mockHttpClientFactory = new Mock<IHttpClientFactory>(MockBehavior.Strict);
+            var mockHttpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Strict);
+
+            const string expectedAlbumHref = "Expected Album Href";
+
+            var expectedArtistAlbums = new Albums
+            {
+                Href = expectedAlbumHref
+            };
+
+            mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = System.Net.HttpStatusCode.OK,
+                    Content = new StringContent(JsonSerializer.Serialize(expectedArtistAlbums))
+                });
+
+            mockHttpClientFactory
+                .Setup(httpClientFactory => httpClientFactory.CreateClient(string.Empty))
+                .Returns(new HttpClient(mockHttpMessageHandler.Object));
+
+            var spotifyAccessor = new SpotifyAccessor(mockHttpClientFactory.Object);
+
+            // Act
+            var artistAlbums = await spotifyAccessor
+                .GetArtistAlbumsAsync("bearer", "http://localhost");
+
+            // Assert
+            Assert.That(artistAlbums.Href, Is.EqualTo(expectedAlbumHref));
+        }
     }
 }

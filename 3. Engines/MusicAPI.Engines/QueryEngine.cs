@@ -53,5 +53,32 @@ namespace MusicAPI.Engines
         {
             return $"{SpotifyBaseUri}/artists/{artistId}/top-tracks?market={marketCode}";
         }
+
+        public string BuildArtistAlbumsQueryString(
+            string artistId,
+            string marketCode,
+            string? includeGroups,
+            int? limit,
+            int? offset)
+        {
+            var requestString = $"{SpotifyBaseUri}/artists/{artistId}/albums?market={marketCode}";
+
+            if (!string.IsNullOrWhiteSpace(includeGroups))
+            {
+                requestString += $"&include_groups={includeGroups}";
+            }
+
+            if (limit != null)
+            {
+                requestString += $"&limit={limit}";
+            }
+
+            if (offset != null)
+            {
+                requestString += $"&offset={offset}";
+            }
+
+            return requestString;
+        }
     }
 }

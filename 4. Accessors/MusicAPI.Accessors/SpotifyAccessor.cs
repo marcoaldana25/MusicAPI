@@ -91,6 +91,27 @@ namespace MusicAPI.Accessors
             throw new HttpRequestException($"Unable to retrieve Artist Top Tracks using the request {queryString}");
         }
 
+        public async Task<Albums> GetArtistAlbumsAsync(string bearerToken, string queryString)
+        {
+            ValidateParameters(bearerToken, queryString);
+
+            var response = await ExecuteGetRequest(bearerToken, queryString);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response
+                    .Content
+                    .ReadAsStringAsync();
+
+                var albums = JsonSerializer
+                    .Deserialize<Albums>(responseContent);
+
+                return albums ?? new Albums();
+            }
+
+            throw new HttpRequestException($"Unable to retrieve Artist Albums using the request {queryString}");
+        }
+
         private async Task<HttpResponseMessage> ExecuteGetRequest(string bearerToken, string queryString)
         {
             var httpClient = SetupHttpClient(bearerToken);
