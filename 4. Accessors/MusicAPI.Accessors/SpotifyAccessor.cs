@@ -130,7 +130,7 @@ namespace MusicAPI.Accessors
                 return relatedArtists ?? new RelatedArtists();
             }
 
-            throw new HttpRequestException($"Unable to retrieve related Artists using the requset {queryString}");
+            throw new HttpRequestException($"Unable to retrieve related Artists using the request {queryString}");
         }
 
         private async Task<HttpResponseMessage> ExecuteGetRequest(string bearerToken, string queryString)
