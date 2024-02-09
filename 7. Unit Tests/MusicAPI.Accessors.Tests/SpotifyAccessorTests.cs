@@ -497,5 +497,104 @@
             // Assert
             Assert.That(artistAlbums.Href, Is.EqualTo(expectedAlbumHref));
         }
+
+        [Test]
+        public void GetRelatedArtistsAsync_EmptyBearerToken_ShouldThrowArgumentNullException()
+        {
+            // Arrange
+            var mockHttpClientFactory = new Mock<IHttpClientFactory>(MockBehavior.Strict);
+
+            var spotifyAccesor = new SpotifyAccessor(mockHttpClientFactory.Object);
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+                await spotifyAccesor.GetRelatedArtistsAsync(string.Empty, string.Empty));
+        }
+
+        [Test]
+        public void GetRelatedArtistsAsync_EmptyQueryString_ShouldThrowArgumentNullException()
+        {
+            // Arrange
+            var mockHttpClientFactory = new Mock<IHttpClientFactory>(MockBehavior.Strict);
+
+            var spotifyAccessor = new SpotifyAccessor(mockHttpClientFactory.Object);
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentNullException>(async () =>
+                await spotifyAccessor.GetRelatedArtistsAsync("bearerToken", string.Empty));
+        }
+
+        [Test]
+        public void GetRelatedArtistsAsync_UnsuccessfulStatusCode_ShouldThrowHttpRequestException()
+        {
+            // Arrange
+            var mockHttpClientFactory = new Mock<IHttpClientFactory>(MockBehavior.Strict);
+
+            var mockHttpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Strict);
+            mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = System.Net.HttpStatusCode.BadRequest
+                });
+
+            mockHttpClientFactory
+                .Setup(httpClientFactory => httpClientFactory.CreateClient(string.Empty))
+                .Returns(new HttpClient(mockHttpMessageHandler.Object));
+
+            var spotifyAccessor = new SpotifyAccessor(mockHttpClientFactory.Object);
+
+            // Act & Assert
+            Assert.ThrowsAsync<HttpRequestException>(async () =>
+                await spotifyAccessor.GetRelatedArtistsAsync("bearer", "http://localhost"));
+        }
+
+        [Test]
+        public async Task GetRelatedArtistsAsync_SuccessfulStatusCode_ShouldReturnRelatedArtists()
+        {
+            // Arrange
+            var mockHttpClientFactory = new Mock<IHttpClientFactory>(MockBehavior.Strict);
+
+            var expectedArtistId = "Artist ID";
+
+            var mockHttpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Strict);
+            mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = System.Net.HttpStatusCode.OK,
+                    Content = new StringContent(JsonSerializer.Serialize(new RelatedArtists
+                    {
+                        Artists =
+                        [
+                            new Artist
+                            {
+                                Id = expectedArtistId
+                            }
+                        ]
+                    }))
+                });
+
+            mockHttpClientFactory
+                .Setup(httpClientFactory => httpClientFactory.CreateClient(string.Empty))
+                .Returns(new HttpClient(mockHttpMessageHandler.Object));
+
+            var spotifyAccessor = new SpotifyAccessor(mockHttpClientFactory.Object);
+
+            // Act
+            var relatedArtists = await spotifyAccessor
+                .GetRelatedArtistsAsync("bearer", "http://localhost");
+
+            // Assert
+            Assert.That(relatedArtists.Artists[0].Id, Is.EqualTo(expectedArtistId));
+        }
     }
 }

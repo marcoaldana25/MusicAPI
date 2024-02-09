@@ -178,5 +178,21 @@
 
             Assert.That(queryString, Is.EqualTo(expectedQueryString));
         }
+
+        [Test]
+        public void BuildRelatedArtistsQueryString_ShouldReturnQueryString()
+        {
+            // Arrange
+            var queryEngine = new QueryEngine();
+
+            // Act
+            var queryString = queryEngine
+                .BuildRelatedArtistsQueryString("artistId");
+
+            // Assert
+            const string expectedQueryString = "https://api.spotify.com/v1/artists/artistId/related-artists";
+
+            Assert.That(queryString, Is.EqualTo(expectedQueryString));
+        }
     }
 }
