@@ -80,5 +80,10 @@ namespace MusicAPI.Engines
 
             return requestString;
         }
+
+        public string BuildRelatedArtistsQueryString(string artistId)
+        {
+            return $"{SpotifyBaseUri}/artists/{artistId}/related-artists";
+        }
     }
 }

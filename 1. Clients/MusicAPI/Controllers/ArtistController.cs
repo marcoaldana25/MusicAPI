@@ -125,5 +125,24 @@ namespace MusicAPI.Controllers
 
             return Ok(albums);
         }
+
+        /// <summary>
+        /// Get Spotify Catalog information about artists similar to a given artist. Similarity is based on the analysis of the Spotify
+        /// community's listening history.
+        /// </summary>
+        /// <param name="artistId">
+        ///     The Spotify ID of the artist
+        /// </param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("relatedArtists")]
+        [Produces(typeof(OkObjectResult))]
+        public async Task<IActionResult> GetRelatedArtistsAsync([Required] string artistId)
+        {
+            var relatedArtists = await spotifyManager
+                .GetRelatedArtistsAsync(artistId);
+
+            return Ok(relatedArtists);
+        }
     }
 }

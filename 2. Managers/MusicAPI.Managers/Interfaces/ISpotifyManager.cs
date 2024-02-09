@@ -61,5 +61,13 @@ namespace MusicAPI.Managers.Interfaces
             string? includeGroups = "",
             int? limit = 20,
             int? offset = 0);
+
+        /// <summary>
+        /// Manager method for directing traffic to retrieve related Artists for a given
+        /// artist using Spotify's GET /artists/{id}/related-artist endpoint.
+        /// </summary>
+        /// <param name="artistId"></param>
+        /// <returns></returns>
+        Task<ViewModels.RelatedArtists> GetRelatedArtistsAsync(string artistId);
     }
 }

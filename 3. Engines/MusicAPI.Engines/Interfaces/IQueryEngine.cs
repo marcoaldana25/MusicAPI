@@ -56,5 +56,12 @@
             string? includeGroups, 
             int? limit, 
             int? offset);
+
+        /// <summary>
+        /// Responsible for building a query string that targets Spotify's Web API GET /artists/{id}/related-artists endpoint.
+        /// </summary>
+        /// <param name="artistId"></param>
+        /// <returns></returns>
+        string BuildRelatedArtistsQueryString(string artistId);
     }
 }

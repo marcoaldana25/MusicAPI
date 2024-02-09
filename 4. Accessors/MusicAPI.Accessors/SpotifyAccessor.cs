@@ -112,6 +112,27 @@ namespace MusicAPI.Accessors
             throw new HttpRequestException($"Unable to retrieve Artist Albums using the request {queryString}");
         }
 
+        public async Task<RelatedArtists> GetRelatedArtistsAsync(string bearerToken, string queryString)
+        {
+            ValidateParameters(bearerToken, queryString);
+
+            var response = await ExecuteGetRequest(bearerToken, queryString);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response
+                    .Content
+                    .ReadAsStringAsync();
+
+                var relatedArtists = JsonSerializer
+                    .Deserialize<RelatedArtists>(responseContent);
+
+                return relatedArtists ?? new RelatedArtists();
+            }
+
+            throw new HttpRequestException($"Unable to retrieve related Artists using the requset {queryString}");
+        }
+
         private async Task<HttpResponseMessage> ExecuteGetRequest(string bearerToken, string queryString)
         {
             var httpClient = SetupHttpClient(bearerToken);

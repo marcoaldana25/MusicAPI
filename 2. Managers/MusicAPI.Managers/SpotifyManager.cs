@@ -108,5 +108,20 @@ namespace MusicAPI.Managers
             return mapper
                 .Map<ViewModels.Albums>(albums) ?? new ViewModels.Albums();
         }
+
+        public async Task<ViewModels.RelatedArtists> GetRelatedArtistsAsync(string artistId)
+        {
+            var bearerToken = await authorizationAccessor
+                .RequestAccessTokenAsync();
+
+            var queryString = queryEngine
+                .BuildRelatedArtistsQueryString(artistId);
+
+            var relatedArtistsDto = await spotifyAccessor
+                .GetRelatedArtistsAsync(bearerToken, queryString);
+
+            return mapper
+                .Map<ViewModels.RelatedArtists>(relatedArtistsDto) ?? new ViewModels.RelatedArtists();
+        }
     }
 }
