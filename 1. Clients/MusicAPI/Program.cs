@@ -12,6 +12,18 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(enumConverter);
 });
 
+const string AngularShowcase = "AngularShowcase";
+var angularShowcaseOrigin = builder.Configuration.GetValue<string>("AngularShowcaseBaseUrl") ?? string.Empty;
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: AngularShowcase,
+        policy =>
+        {
+            policy.WithOrigins(angularShowcaseOrigin);
+        });
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(configuration =>
@@ -51,6 +63,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
+
+app.UseCors(AngularShowcase);
 
 app.UseHttpsRedirection();
 
