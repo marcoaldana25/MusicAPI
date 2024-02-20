@@ -18,6 +18,10 @@
                 configuration.AddProfile(typeof(ExternalUrlMappingProfile));
                 configuration.AddProfile(typeof(FollowersMappingProfile));
                 configuration.AddProfile(typeof(ImageMappingProfile));
+
+                configuration.AddProfile(typeof(PlaylistsMappingProfile));
+                configuration.AddProfile(typeof(PlaylistMappingProfile));
+                configuration.AddProfile(typeof(OwnerMappingProfile));
             });
 
             Mapper = mapperConfiguration.CreateMapper();
@@ -40,6 +44,10 @@
                 Artists = new Accessors.DataTransferObjects.Artists
                 {
                     Total = 5
+                },
+                Playlists = new Accessors.DataTransferObjects.Playlists
+                {
+                    Total = 10
                 }
             };
 
@@ -50,6 +58,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(searchResultViewModel.Artists.Total, Is.EqualTo(5));
+                Assert.That(searchResultDataTransferObject.Playlists.Total, Is.EqualTo(10));
             });
         }
     }
