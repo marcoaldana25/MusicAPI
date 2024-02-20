@@ -3,5 +3,7 @@
     public class SearchResult
     {
         public Artists Artists { get; set; } = new Artists();
+
+        public Playlists Playlists { get; set; } = new Playlists();
     }
 }

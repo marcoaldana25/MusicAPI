@@ -64,7 +64,7 @@ namespace MusicAPI.Controllers
             var searchResult = await spotifyManager
                 .GetSearchAsync(searchQuery, SearchType.Artist, marketCode, limit, offset, includeExternal);
 
-            return Ok(searchResult);
+            return Ok(searchResult.Artists);
         }
 
         /// <summary>
