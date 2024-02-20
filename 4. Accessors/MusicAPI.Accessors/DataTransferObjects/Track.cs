@@ -72,8 +72,6 @@ namespace MusicAPI.Accessors.DataTransferObjects
         [JsonPropertyName("is_playable")]
         public bool IsPlayable { get; set; }
 
-        // TODO: Look more into the Linked_From object
-
         /// <summary>
         /// Included in the response when a content restriction is applied.
         /// </summary>

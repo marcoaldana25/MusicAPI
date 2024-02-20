@@ -17,12 +17,12 @@ namespace MusicAPI.Accessors.DataTransferObjects
         /// The image height in pixels.
         /// </summary>
         [JsonPropertyName("height")]
-        public decimal Height { get; set; } = 0;
+        public decimal? Height { get; set; } = 0;
 
         /// <summary>
         /// The image width in pixels.
         /// </summary>
         [JsonPropertyName("width")]
-        public decimal Width { get; set; } = 0;
+        public decimal? Width { get; set; } = 0;
     }
 }

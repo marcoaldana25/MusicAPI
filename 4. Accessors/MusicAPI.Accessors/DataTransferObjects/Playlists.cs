@@ -2,9 +2,9 @@
 
 namespace MusicAPI.Accessors.DataTransferObjects
 {
-    public class Artists : BaseSearchResult
+    public class Playlists : BaseSearchResult
     {
         [JsonPropertyName("items")]
-        public Artist[] Items { get; set; } = [];
+        public Playlist[] Items { get; set; } = [];
     }
 }

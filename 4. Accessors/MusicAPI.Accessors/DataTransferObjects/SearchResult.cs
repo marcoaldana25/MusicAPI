@@ -6,5 +6,8 @@ namespace MusicAPI.Accessors.DataTransferObjects
     {
         [JsonPropertyName("artists")]
         public Artists Artists { get; set; } = new Artists();
+
+        [JsonPropertyName("playlists")]
+        public Playlists Playlists { get; set; } = new Playlists();
     }
 }
