@@ -14,7 +14,7 @@ namespace MusicAPI.Controllers
     public class TracksController(ISpotifyManager spotifyManager) : ControllerBase
     {
         /// <summary>
-        /// Get Spotify Catalog informatino about albums that match a keyword string.
+        /// Get Spotify Catalog informatino about tracks that match a keyword string.
         /// </summary>
         /// <param name="searchQuery">
         ///     The Search Query.
