@@ -26,6 +26,10 @@
                 configuration.AddProfile(typeof(AlbumsMappingProfile));
                 configuration.AddProfile(typeof(AlbumMappingProfile));
                 configuration.AddProfile(typeof(RestrictionMappingProfile));
+
+                configuration.AddProfile(typeof(TracksMappingProfile));
+                configuration.AddProfile(typeof(TrackMappingProfile));
+                configuration.AddProfile(typeof(ExternalIdMappingProfile));
             });
 
             Mapper = mapperConfiguration.CreateMapper();
@@ -56,6 +60,10 @@
                 Playlists = new Accessors.DataTransferObjects.Playlists
                 {
                     Total = 10
+                },
+                Tracks = new Accessors.DataTransferObjects.Tracks
+                {
+                    Total = 100
                 }
             };
 
@@ -67,7 +75,8 @@
             {
                 Assert.That(searchResultViewModel.Albums.Total , Is.EqualTo(1));
                 Assert.That(searchResultViewModel.Artists.Total, Is.EqualTo(5));
-                Assert.That(searchResultDataTransferObject.Playlists.Total, Is.EqualTo(10));
+                Assert.That(searchResultViewModel.Playlists.Total, Is.EqualTo(10));
+                Assert.That(searchResultViewModel.Tracks.Total, Is.EqualTo(100));
             });
         }
     }
