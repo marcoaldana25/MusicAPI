@@ -1,17 +1,17 @@
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MusicAPI.Managers.Interfaces;
 using MusicAPI.Managers.ViewModels.Enums;
+using System.ComponentModel.DataAnnotations;
 
-namespace MusicApi.Controllers
+namespace MusicAPI.Controllers
 {
     /// <summary>
-    /// Controller for Client integration targeting Spotify's Web API, specifically around Album information.
+    /// Controller for Client integration targeting Spotify's Web API, specifically around Track information.
     /// </summary>
     /// <param name="spotifyManager"></param>
     [ApiController]
     [Route("api/[controller]")]
-    public class AlbumsController(ISpotifyManager spotifyManager) : ControllerBase 
+    public class TracksController(ISpotifyManager spotifyManager) : ControllerBase
     {
         /// <summary>
         /// Get Spotify Catalog informatino about albums that match a keyword string.
@@ -45,9 +45,9 @@ namespace MusicApi.Controllers
             string? includeExternal = null)
         {
             var searchResult = await spotifyManager
-                .GetSearchAsync(searchQuery, SearchType.Album, marketCode, limit, offset, includeExternal);
+                .GetSearchAsync(searchQuery, SearchType.Track, marketCode, limit, offset, includeExternal);
 
-            return Ok(searchResult.Albums);
+            return Ok(searchResult.Tracks);
         }
     }
 }
