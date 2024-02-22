@@ -22,6 +22,10 @@
                 configuration.AddProfile(typeof(PlaylistsMappingProfile));
                 configuration.AddProfile(typeof(PlaylistMappingProfile));
                 configuration.AddProfile(typeof(OwnerMappingProfile));
+
+                configuration.AddProfile(typeof(AlbumsMappingProfile));
+                configuration.AddProfile(typeof(AlbumMappingProfile));
+                configuration.AddProfile(typeof(RestrictionMappingProfile));
             });
 
             Mapper = mapperConfiguration.CreateMapper();
@@ -41,6 +45,10 @@
             // Arrange
             var searchResultDataTransferObject = new Accessors.DataTransferObjects.SearchResult
             {
+                Albums = new Accessors.DataTransferObjects.Albums
+                {
+                    Total = 1
+                },
                 Artists = new Accessors.DataTransferObjects.Artists
                 {
                     Total = 5
@@ -57,6 +65,7 @@
             // Assert
             Assert.Multiple(() =>
             {
+                Assert.That(searchResultViewModel.Albums.Total , Is.EqualTo(1));
                 Assert.That(searchResultViewModel.Artists.Total, Is.EqualTo(5));
                 Assert.That(searchResultDataTransferObject.Playlists.Total, Is.EqualTo(10));
             });
