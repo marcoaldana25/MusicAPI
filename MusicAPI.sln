@@ -39,6 +39,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicAPI.Engines", "3. Engi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicAPI.Engines.Tests", "7. Unit Tests\MusicAPI.Engines.Tests\MusicAPI.Engines.Tests.csproj", "{7A9AA1DB-C88B-4A6A-8388-B0E60230A835}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicAPI.AppHost", "MusicAPI.AppHost\MusicAPI.AppHost.csproj", "{5B27729E-523C-4202-B8CB-2343556E31B0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicAPI.ServiceDefaults", "MusicAPI.ServiceDefaults\MusicAPI.ServiceDefaults.csproj", "{90EC6058-7039-447B-9560-7002D10EB634}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +85,14 @@ Global
 		{7A9AA1DB-C88B-4A6A-8388-B0E60230A835}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A9AA1DB-C88B-4A6A-8388-B0E60230A835}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A9AA1DB-C88B-4A6A-8388-B0E60230A835}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B27729E-523C-4202-B8CB-2343556E31B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B27729E-523C-4202-B8CB-2343556E31B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B27729E-523C-4202-B8CB-2343556E31B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B27729E-523C-4202-B8CB-2343556E31B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90EC6058-7039-447B-9560-7002D10EB634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90EC6058-7039-447B-9560-7002D10EB634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90EC6058-7039-447B-9560-7002D10EB634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90EC6058-7039-447B-9560-7002D10EB634}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

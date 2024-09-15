@@ -1,0 +1,24 @@
+<div id="userDetails">
+  <h5>A little about my Spotify profile</h5>
+  <a class="btn btn-primary" (click)="showHideUserProfile()">{{ userProfileText }}</a>
+  <div *ngIf="userProfileVisible">
+    <h3>Marco's Spotify Profile</h3>
+    <div class="container">
+      <div class="row">
+        <div class="col-4">
+          <img *ngIf="userProfile.images.length > 0"
+                src="{{ userProfile.images[1].url }}"
+                width="280"
+                height="280" />
+        </div>
+        <div class="col-6">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Display Name: {{ userProfile.displayName }}</li>
+            <li class="list-group-item"><a href="{{ userProfile.externalUrls.spotify }}">Link to my Spotify Account</a></li>
+            <li class="list-group-item">Follower Count: {{ userProfile.followers.total }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

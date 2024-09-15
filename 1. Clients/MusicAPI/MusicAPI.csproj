@@ -18,6 +18,7 @@
     <ProjectReference Include="..\..\2. Managers\MusicAPI.Managers\MusicAPI.Managers.csproj" />
     <ProjectReference Include="..\..\4. Accessors\MusicAPI.Accessors\MusicAPI.Accessors.csproj" />
     <ProjectReference Include="..\..\5. Utilities\MusicAPI.Utilities\MusicAPI.Utilities.csproj" />
+    <ProjectReference Include="..\..\MusicAPI.ServiceDefaults\MusicAPI.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>
