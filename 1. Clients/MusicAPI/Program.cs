@@ -1,30 +1,13 @@
 using MusicAPI.InversionOfControl;
 using System.Reflection;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-// Add services to the container.
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    // Serialize enums as strings for incoming requests
-    var enumConverter = new JsonStringEnumConverter();
-    options.JsonSerializerOptions.Converters.Add(enumConverter);
-});
+builder.ConfigureJsonSerialization();
 
-const string AngularShowcase = "AngularShowcase";
-var angularShowcaseOrigin = builder.Configuration.GetValue<string>("AngularShowcaseBaseUrl") ?? string.Empty;
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: AngularShowcase,
-        policy =>
-        {
-            policy.WithOrigins(angularShowcaseOrigin);
-        });
-});
+builder.AddCorsPolicy();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -67,6 +50,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
+
+const string AngularShowcase = "AngularShowcase";
 
 app.UseCors(AngularShowcase);
 

@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
 using OpenTelemetry;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
+using System.Reflection;
+using System.Text.Json.Serialization;
 
 namespace Microsoft.Extensions.Hosting;
 
@@ -29,6 +32,27 @@ public static class Extensions
 
             // Turn on service discovery by default
             http.AddServiceDiscovery();
+        });
+
+        return builder;
+    }
+
+    /// <summary>
+    /// Configures the CORS policy to communicate between the AngularShowcase project and the Music API project
+    /// </summary>
+    /// <param name="builder"></param>
+    public static IHostApplicationBuilder AddCorsPolicy(this IHostApplicationBuilder builder)
+    {
+        const string AngularShowcase = "AngularShowcase";
+        var angularShowcaseOrigin = builder.Configuration.GetValue<string>("AngularShowcaseBaseUrl") ?? string.Empty;
+
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(name: AngularShowcase,
+                policy =>
+                {
+                    policy.WithOrigins(angularShowcaseOrigin);
+                });
         });
 
         return builder;
@@ -107,5 +131,18 @@ public static class Extensions
         }
 
         return app;
+    }
+
+    public static IHostApplicationBuilder ConfigureJsonSerialization(this IHostApplicationBuilder builder)
+    {
+        // Add services to the container.
+        builder.Services.AddControllers().AddJsonOptions(options =>
+        {
+            // Serialize enums as strings for incoming requests
+            var enumConverter = new JsonStringEnumConverter();
+            options.JsonSerializerOptions.Converters.Add(enumConverter);
+        });
+
+        return builder;
     }
 }
