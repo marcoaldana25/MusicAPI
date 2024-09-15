@@ -1,0 +1,25 @@
+<div id="home" class="container">
+
+  <h3 class="display-3 d-flex justify-content-center">Welcome to my Portfolio!</h3>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">My Portfolio Site</a>
+      <a class="navbar-brand" (click)="showHideAboutMe()">{{ aboutMeText }}</a>
+      <a class="navbar-brand" (click)="showHideSpotify()">{{ musicApiText }}</a>
+    </div>
+  </nav>
+
+  <div id="aboutMe">
+    <about-me *ngIf="aboutMeVisible"></about-me>
+  </div>
+
+  <div id="spotify">
+    <div id="userProfile">
+      <user-profile *ngIf="spotifyVisible"></user-profile>
+    </div>
+    <div id="artistSearch">
+      <artist-search *ngIf="spotifyVisible"></artist-search>
+    </div>
+  </div>
+</div>
